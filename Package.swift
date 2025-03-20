@@ -52,7 +52,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/mobven/GooglePackages-iOS", branch: "main")
+        .package(url: "https://github.com/mobven/GooglePackages-iOS", from: "1.0.0")
     ],
     targets: [
         .target(

@@ -1,5 +1,5 @@
 {
-  "originHash" : "45342abc77a814269ad6d33e4d8ee123f742add59d2268e3cb112c9a1ebcf133",
+  "originHash" : "6f6a43abc23a6a27ef7a57c0c8aa547325cff2bf4a01552f7f0e5c8ba4b27f8c",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -60,8 +60,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mobven/GooglePackages-iOS",
       "state" : {
-        "branch" : "main",
-        "revision" : "be5dcbfca0966fa735482254431a9006ecd2c1c9"
+        "revision" : "be5dcbfca0966fa735482254431a9006ecd2c1c9",
+        "version" : "1.0.0"
       }
     },
     {
