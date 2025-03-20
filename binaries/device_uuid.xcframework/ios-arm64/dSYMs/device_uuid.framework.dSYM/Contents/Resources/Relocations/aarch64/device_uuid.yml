@@ -1,0 +1,24 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/binpay_flutter/ios_flutter_build/Release/iphoneos/Release-iphoneos/device_uuid/device_uuid.framework/device_uuid'
+relocations:
+  - { offset: 0x60DB0, size: 0x8, addend: 0x0, symName: _device_uuidVersionString, symObjAddr: 0x0, symBinAddr: 0xA8C0, symSize: 0x0 }
+  - { offset: 0x60DE5, size: 0x8, addend: 0x0, symName: _device_uuidVersionNumber, symObjAddr: 0x30, symBinAddr: 0xA8F0, symSize: 0x0 }
+  - { offset: 0x60E22, size: 0x8, addend: 0x0, symName: '+[DeviceUuidPlugin registerWithRegistrar:]', symObjAddr: 0x0, symBinAddr: 0x8000, symSize: 0xC }
+  - { offset: 0x60E30, size: 0x8, addend: 0x0, symName: '+[DeviceUuidPlugin registerWithRegistrar:]', symObjAddr: 0x0, symBinAddr: 0x8000, symSize: 0xC }
+  - { offset: 0x61089, size: 0x8, addend: 0x0, symName: '_$s11device_uuid21SwiftDeviceUuidPluginCMa', symObjAddr: 0xF8, symBinAddr: 0x8104, symSize: 0x20 }
+  - { offset: 0x610B3, size: 0x8, addend: 0x0, symName: '_$sypSgWOh', symObjAddr: 0x344, symBinAddr: 0x8350, symSize: 0x40 }
+  - { offset: 0x610C7, size: 0x8, addend: 0x0, symName: ___swift_instantiateConcreteTypeFromMangledName, symObjAddr: 0x384, symBinAddr: 0x8390, symSize: 0x40 }
+  - { offset: 0x610E6, size: 0x8, addend: 0x0, symName: '_$sypSgWOc', symObjAddr: 0x6E4, symBinAddr: 0x86F0, symSize: 0x48 }
+  - { offset: 0x610FA, size: 0x8, addend: 0x0, symName: ___swift_project_boxed_opaque_existential_0, symObjAddr: 0x72C, symBinAddr: 0x8738, symSize: 0x24 }
+  - { offset: 0x6110E, size: 0x8, addend: 0x0, symName: ___swift_destroy_boxed_opaque_existential_0, symObjAddr: 0x750, symBinAddr: 0x875C, symSize: 0x20 }
+  - { offset: 0x6123B, size: 0x8, addend: 0x0, symName: '_$s11device_uuid21SwiftDeviceUuidPluginC8register4withySo07FlutterF9Registrar_p_tFZ', symObjAddr: 0x0, symBinAddr: 0x800C, symSize: 0xD8 }
+  - { offset: 0x612BD, size: 0x8, addend: 0x0, symName: '_$s11device_uuid21SwiftDeviceUuidPluginCACycfC', symObjAddr: 0xD8, symBinAddr: 0x80E4, symSize: 0x20 }
+  - { offset: 0x612DE, size: 0x8, addend: 0x0, symName: '_$s11device_uuid21SwiftDeviceUuidPluginC8register4withySo07FlutterF9Registrar_p_tFZTo', symObjAddr: 0x118, symBinAddr: 0x8124, symSize: 0xEC }
+  - { offset: 0x6137A, size: 0x8, addend: 0x0, symName: '_$s11device_uuid21SwiftDeviceUuidPluginC6handle_6resultySo17FlutterMethodCallC_yypSgctF', symObjAddr: 0x204, symBinAddr: 0x8210, symSize: 0x140 }
+  - { offset: 0x613F2, size: 0x8, addend: 0x0, symName: '_$s11device_uuid21SwiftDeviceUuidPluginC6handle_6resultySo17FlutterMethodCallC_yypSgctFTo', symObjAddr: 0x3C4, symBinAddr: 0x83D0, symSize: 0x78 }
+  - { offset: 0x6141C, size: 0x8, addend: 0x0, symName: '_$s11device_uuid21SwiftDeviceUuidPluginCACycfc', symObjAddr: 0x43C, symBinAddr: 0x8448, symSize: 0x30 }
+  - { offset: 0x6144F, size: 0x8, addend: 0x0, symName: '_$s11device_uuid21SwiftDeviceUuidPluginCACycfcTo', symObjAddr: 0x46C, symBinAddr: 0x8478, symSize: 0x3C }
+  - { offset: 0x61484, size: 0x8, addend: 0x0, symName: '_$s11device_uuid21SwiftDeviceUuidPluginCfD', symObjAddr: 0x4A8, symBinAddr: 0x84B4, symSize: 0x30 }
+  - { offset: 0x614A7, size: 0x8, addend: 0x0, symName: '_$s11device_uuid21SwiftDeviceUuidPluginC6handle_6resultySo17FlutterMethodCallC_yypSgctF015$syXlSgIeyBy_ypN7Iegn_TRyXlSgIeyBy_Tf1ncn_nTf4ndg_n', symObjAddr: 0x500, symBinAddr: 0x850C, symSize: 0x1E4 }
+...
