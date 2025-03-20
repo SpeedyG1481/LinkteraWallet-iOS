@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19CB7C242D8C27D500A29126 /* LinkteraWallet in Frameworks */ = {isa = PBXBuildFile; productRef = 19CB7C232D8C27D500A29126 /* LinkteraWallet */; };
 		19D356AE2D8C08A700AA9EB4 /* LinkteraWallet in Frameworks */ = {isa = PBXBuildFile; productRef = 19D356AD2D8C08A700AA9EB4 /* LinkteraWallet */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19D356AE2D8C08A700AA9EB4 /* LinkteraWallet in Frameworks */,
+				19CB7C242D8C27D500A29126 /* LinkteraWallet in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +73,7 @@
 			name = DemoApp;
 			packageProductDependencies = (
 				19D356AD2D8C08A700AA9EB4 /* LinkteraWallet */,
+				19CB7C232D8C27D500A29126 /* LinkteraWallet */,
 			);
 			productName = DemoApp;
 			productReference = 19D356892D8C07EA00AA9EB4 /* DemoApp.app */;
@@ -101,7 +104,7 @@
 			mainGroup = 19D356802D8C07EA00AA9EB4;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				19D356AC2D8C08A700AA9EB4 /* XCLocalSwiftPackageReference "../../LinkteraWallet" */,
+				19CB7C222D8C27D500A29126 /* XCLocalSwiftPackageReference "../../LinkteraWallet-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 19D3568A2D8C07EA00AA9EB4 /* Products */;
@@ -335,13 +338,17 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		19D356AC2D8C08A700AA9EB4 /* XCLocalSwiftPackageReference "../../LinkteraWallet" */ = {
+		19CB7C222D8C27D500A29126 /* XCLocalSwiftPackageReference "../../LinkteraWallet-iOS" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../LinkteraWallet;
+			relativePath = "../../LinkteraWallet-iOS";
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		19CB7C232D8C27D500A29126 /* LinkteraWallet */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LinkteraWallet;
+		};
 		19D356AD2D8C08A700AA9EB4 /* LinkteraWallet */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = LinkteraWallet;
