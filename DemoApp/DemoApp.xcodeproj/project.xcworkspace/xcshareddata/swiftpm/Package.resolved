@@ -56,6 +56,15 @@
       }
     },
     {
+      "identity" : "googlepackages-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mobven/GooglePackages-iOS",
+      "state" : {
+        "branch" : "main",
+        "revision" : "be5dcbfca0966fa735482254431a9006ecd2c1c9"
+      }
+    },
+    {
       "identity" : "googlesignin-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GoogleSignIn-iOS",

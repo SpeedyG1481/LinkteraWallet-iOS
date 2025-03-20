@@ -48,15 +48,16 @@ let package = Package(
                 "OpenSSL",
                 "PowerFactor",
                 "SCSoftAutonomousSolutionSdk"
-            ])
+            ]
+        )
     ],
     dependencies: [
-        .package(name: "GooglePackages", path: "../GooglePackages")
+        .package(url: "https://github.com/mobven/GooglePackages-iOS", branch: "main")
     ],
     targets: [
         .target(
             name: "LinkteraWallet",
-            dependencies: ["GooglePackages"]
+            dependencies: [.product(name: "GooglePackages", package: "GooglePackages-iOS")]
         ),
         .binaryTarget(name: "App", path: "binaries/App.xcframework"),
         .binaryTarget(name: "Flutter", path: "binaries/Flutter.xcframework"),
