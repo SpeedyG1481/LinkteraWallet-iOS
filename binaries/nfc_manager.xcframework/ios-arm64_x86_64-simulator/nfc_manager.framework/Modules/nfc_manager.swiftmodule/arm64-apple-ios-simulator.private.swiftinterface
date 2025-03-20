@@ -1,0 +1,22 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.0.3 effective-5.10 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)
+// swift-module-flags: -target arm64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -enable-bare-slash-regex -module-name nfc_manager
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface
+import CoreNFC
+import Flutter
+import Swift
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@_exported import nfc_manager
+@objc @_hasMissingDesignatedInitializers public class SwiftNfcManagerPlugin : ObjectiveC.NSObject, Flutter.FlutterPlugin {
+  @objc public static func register(with registrar: any Flutter.FlutterPluginRegistrar)
+  @objc public func handle(_ call: Flutter.FlutterMethodCall, result: @escaping Flutter.FlutterResult)
+  @objc deinit
+}
+@available(iOS 13.0, *)
+extension nfc_manager.SwiftNfcManagerPlugin : CoreNFC.NFCTagReaderSessionDelegate {
+  public func tagReaderSessionDidBecomeActive(_ session: CoreNFC.NFCTagReaderSession)
+  public func tagReaderSession(_ session: CoreNFC.NFCTagReaderSession, didInvalidateWithError error: any Swift.Error)
+  public func tagReaderSession(_ session: CoreNFC.NFCTagReaderSession, didDetect tags: [CoreNFC.NFCTag])
+}

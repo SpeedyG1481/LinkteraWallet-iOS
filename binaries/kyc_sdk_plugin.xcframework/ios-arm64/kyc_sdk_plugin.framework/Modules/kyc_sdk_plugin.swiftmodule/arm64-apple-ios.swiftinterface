@@ -1,0 +1,41 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.0.3 effective-5.10 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)
+// swift-module-flags: -target arm64-apple-ios13.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name kyc_sdk_plugin
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface
+import Flutter
+import SCSoftAutonomousSolutionSdk
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@_exported import kyc_sdk_plugin
+@objc @_inheritsConvenienceInitializers public class SwiftKycSdkPlugin : ObjectiveC.NSObject, Flutter.FlutterPlugin, Flutter.FlutterStreamHandler {
+  @objc public static func register(with registrar: any Flutter.FlutterPluginRegistrar)
+  @objc public func handle(_ call: Flutter.FlutterMethodCall, result: @escaping Flutter.FlutterResult)
+  @objc public func onListen(withArguments arguments: Any?, eventSink events: @escaping Flutter.FlutterEventSink) -> Flutter.FlutterError?
+  @objc public func onCancel(withArguments arguments: Any?) -> Flutter.FlutterError?
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension kyc_sdk_plugin.SwiftKycSdkPlugin : SCSoftAutonomousSolutionSdk.KycSdkSelfieDelegate {
+  public func didCaptureSelfiePhoto(model: SCSoftAutonomousSolutionSdk.KycSdkSelfieModel)
+  public func didCloseSelfie()
+}
+extension kyc_sdk_plugin.SwiftKycSdkPlugin : SCSoftAutonomousSolutionSdk.KycSdkIdFrontDelegate {
+  public func didCaptureIdFrontPhoto(model: SCSoftAutonomousSolutionSdk.KycSdkIdFrontModel)
+  public func didCloseIdFront()
+}
+extension kyc_sdk_plugin.SwiftKycSdkPlugin : SCSoftAutonomousSolutionSdk.KycSdkIdBackDelegate {
+  public func didCaptureIdBackPhoto(model: SCSoftAutonomousSolutionSdk.KycSdkIdBackModel)
+  public func didCloseIdBack()
+}
+extension kyc_sdk_plugin.SwiftKycSdkPlugin : SCSoftAutonomousSolutionSdk.KycSdkNfcDelegate {
+  public func didReadNfc(didRead nfcData: SCSoftAutonomousSolutionSdk.KycSdkNfcModel)
+  public func didCloseNfc()
+}
+extension kyc_sdk_plugin.SwiftKycSdkPlugin : SCSoftAutonomousSolutionSdk.KycSdkHeadPoseDelegate {
+  public func didAutonomousFacePredictionHeadPoseSuccess(model: SCSoftAutonomousSolutionSdk.KycSdkHeadPoseModel)
+  public func sendServiceScreenRecord(recordBase64: Foundation.URL)
+  public func didCloseHeadPose()
+}
