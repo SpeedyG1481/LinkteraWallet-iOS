@@ -5,29 +5,26 @@
 //  Created by Raşid Ramazanov on 20.03.2025.
 //
 
-import SwiftUI
 import LinkteraWallet
+import SwiftUI
 
 struct ContentView: View {
-    @State var presentLinkteraWallet: Bool = false
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            VStack {
+                Image(systemName: "globe")
+                    .imageScale(.large)
+                    .foregroundStyle(.tint)
+                Text("Hello, world!")
 
-            Button {
-                presentLinkteraWallet.toggle()
-            } label: {
-                Text("Linktera Cüzdan")
+                NavigationLink {
+                    LinkteraWalletView()
+                } label: {
+                    Text("Linktera Cüzdan")
+                }
             }
-
+            .padding()
         }
-        .fullScreenCover(isPresented: $presentLinkteraWallet, content: {
-            LinkteraWalletView()
-        })
-        .padding()
     }
 }
 
