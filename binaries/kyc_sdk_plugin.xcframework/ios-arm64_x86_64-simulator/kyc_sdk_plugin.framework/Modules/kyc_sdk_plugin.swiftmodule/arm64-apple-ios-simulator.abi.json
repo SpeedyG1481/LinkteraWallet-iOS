@@ -1,0 +1,1340 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "kyc_sdk_plugin",
+    "printedName": "kyc_sdk_plugin",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Flutter",
+        "printedName": "Flutter",
+        "declKind": "Import",
+        "moduleName": "kyc_sdk_plugin"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "kyc_sdk_plugin"
+      },
+      {
+        "kind": "Import",
+        "name": "SCSoftAutonomousSolutionSdk",
+        "printedName": "SCSoftAutonomousSolutionSdk",
+        "declKind": "Import",
+        "moduleName": "kyc_sdk_plugin"
+      },
+      {
+        "kind": "Var",
+        "name": "_idFrontPhoto",
+        "printedName": "_idFrontPhoto",
+        "children": [
+          {
+            "kind": "TypeNominal",
+            "name": "String",
+            "printedName": "Swift.String",
+            "usr": "s:SS"
+          }
+        ],
+        "declKind": "Var",
+        "usr": "s:14kyc_sdk_plugin13_idFrontPhotoSSvp",
+        "mangledName": "$s14kyc_sdk_plugin13_idFrontPhotoSSvp",
+        "moduleName": "kyc_sdk_plugin",
+        "declAttributes": [
+          "HasInitialValue",
+          "HasStorage"
+        ],
+        "hasStorage": true
+      },
+      {
+        "kind": "Var",
+        "name": "_idBackPhoto",
+        "printedName": "_idBackPhoto",
+        "children": [
+          {
+            "kind": "TypeNominal",
+            "name": "String",
+            "printedName": "Swift.String",
+            "usr": "s:SS"
+          }
+        ],
+        "declKind": "Var",
+        "usr": "s:14kyc_sdk_plugin12_idBackPhotoSSvp",
+        "mangledName": "$s14kyc_sdk_plugin12_idBackPhotoSSvp",
+        "moduleName": "kyc_sdk_plugin",
+        "declAttributes": [
+          "HasInitialValue",
+          "HasStorage"
+        ],
+        "hasStorage": true
+      },
+      {
+        "kind": "Var",
+        "name": "_selfiePhoto",
+        "printedName": "_selfiePhoto",
+        "children": [
+          {
+            "kind": "TypeNominal",
+            "name": "String",
+            "printedName": "Swift.String",
+            "usr": "s:SS"
+          }
+        ],
+        "declKind": "Var",
+        "usr": "s:14kyc_sdk_plugin12_selfiePhotoSSvp",
+        "mangledName": "$s14kyc_sdk_plugin12_selfiePhotoSSvp",
+        "moduleName": "kyc_sdk_plugin",
+        "declAttributes": [
+          "HasInitialValue",
+          "HasStorage"
+        ],
+        "hasStorage": true
+      },
+      {
+        "kind": "Var",
+        "name": "_nfc",
+        "printedName": "_nfc",
+        "children": [
+          {
+            "kind": "TypeNominal",
+            "name": "String",
+            "printedName": "Swift.String",
+            "usr": "s:SS"
+          }
+        ],
+        "declKind": "Var",
+        "usr": "s:14kyc_sdk_plugin4_nfcSSvp",
+        "mangledName": "$s14kyc_sdk_plugin4_nfcSSvp",
+        "moduleName": "kyc_sdk_plugin",
+        "declAttributes": [
+          "HasInitialValue",
+          "HasStorage"
+        ],
+        "hasStorage": true
+      },
+      {
+        "kind": "Var",
+        "name": "_headPose",
+        "printedName": "_headPose",
+        "children": [
+          {
+            "kind": "TypeNominal",
+            "name": "String",
+            "printedName": "Swift.String",
+            "usr": "s:SS"
+          }
+        ],
+        "declKind": "Var",
+        "usr": "s:14kyc_sdk_plugin9_headPoseSSvp",
+        "mangledName": "$s14kyc_sdk_plugin9_headPoseSSvp",
+        "moduleName": "kyc_sdk_plugin",
+        "declAttributes": [
+          "HasInitialValue",
+          "HasStorage"
+        ],
+        "hasStorage": true
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SwiftKycSdkPlugin",
+        "printedName": "SwiftKycSdkPlugin",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "eventSink",
+            "printedName": "eventSink",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "((Any?) -> ())?",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Any?) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "Any?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "ProtocolComposition",
+                            "printedName": "Any"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC9eventSinkyypSgcSgvp",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC9eventSinkyypSgcSgvp",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "((Any?) -> ())?",
+                    "children": [
+                      {
+                        "kind": "TypeFunc",
+                        "name": "Function",
+                        "printedName": "(Any?) -> ()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Optional",
+                            "printedName": "Any?",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "ProtocolComposition",
+                                "printedName": "Any"
+                              }
+                            ],
+                            "usr": "s:Sq"
+                          }
+                        ]
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC9eventSinkyypSgcSgvg",
+                "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC9eventSinkyypSgcSgvg",
+                "moduleName": "kyc_sdk_plugin",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "((Any?) -> ())?",
+                    "children": [
+                      {
+                        "kind": "TypeFunc",
+                        "name": "Function",
+                        "printedName": "(Any?) -> ()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Optional",
+                            "printedName": "Any?",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "ProtocolComposition",
+                                "printedName": "Any"
+                              }
+                            ],
+                            "usr": "s:Sq"
+                          }
+                        ]
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC9eventSinkyypSgcSgvs",
+                "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC9eventSinkyypSgcSgvs",
+                "moduleName": "kyc_sdk_plugin",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC9eventSinkyypSgcSgvM",
+                "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC9eventSinkyypSgcSgvM",
+                "moduleName": "kyc_sdk_plugin",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "result",
+            "printedName": "result",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "((Any?) -> ())?",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Any?) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "Any?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "ProtocolComposition",
+                            "printedName": "Any"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC6resultyypSgcSgvp",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC6resultyypSgcSgvp",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "((Any?) -> ())?",
+                    "children": [
+                      {
+                        "kind": "TypeFunc",
+                        "name": "Function",
+                        "printedName": "(Any?) -> ()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Optional",
+                            "printedName": "Any?",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "ProtocolComposition",
+                                "printedName": "Any"
+                              }
+                            ],
+                            "usr": "s:Sq"
+                          }
+                        ]
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC6resultyypSgcSgvg",
+                "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC6resultyypSgcSgvg",
+                "moduleName": "kyc_sdk_plugin",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "((Any?) -> ())?",
+                    "children": [
+                      {
+                        "kind": "TypeFunc",
+                        "name": "Function",
+                        "printedName": "(Any?) -> ()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Optional",
+                            "printedName": "Any?",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "ProtocolComposition",
+                                "printedName": "Any"
+                              }
+                            ],
+                            "usr": "s:Sq"
+                          }
+                        ]
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC6resultyypSgcSgvs",
+                "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC6resultyypSgcSgvs",
+                "moduleName": "kyc_sdk_plugin",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC6resultyypSgcSgvM",
+                "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC6resultyypSgcSgvM",
+                "moduleName": "kyc_sdk_plugin",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "register",
+            "printedName": "register(with:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "FlutterPluginRegistrar",
+                "printedName": "any Flutter.FlutterPluginRegistrar",
+                "usr": "c:objc(pl)FlutterPluginRegistrar"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@kyc_sdk_plugin@objc(cs)SwiftKycSdkPlugin(cm)registerWithRegistrar:",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC8register4withySo07FlutterG9Registrar_p_tFZ",
+            "moduleName": "kyc_sdk_plugin",
+            "static": true,
+            "objc_name": "registerWithRegistrar:",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "handle",
+            "printedName": "handle(_:result:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "FlutterMethodCall",
+                "printedName": "Flutter.FlutterMethodCall",
+                "usr": "c:objc(cs)FlutterMethodCall"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Any?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Any?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ProtocolComposition",
+                        "printedName": "Any"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@kyc_sdk_plugin@objc(cs)SwiftKycSdkPlugin(im)handleMethodCall:result:",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC6handle_6resultySo17FlutterMethodCallC_yypSgctF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "objc_name": "handleMethodCall:result:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "startKycSdkIdFrontViewController",
+            "printedName": "startKycSdkIdFrontViewController(options:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "KycSdkIdFrontOptions",
+                "printedName": "SCSoftAutonomousSolutionSdk.KycSdkIdFrontOptions",
+                "usr": "s:27SCSoftAutonomousSolutionSdk03KycD14IdFrontOptionsC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC05starteF21IdFrontViewController7optionsy024SCSoftAutonomousSolutionF00efiJ7OptionsC_tF",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC05starteF21IdFrontViewController7optionsy024SCSoftAutonomousSolutionF00efiJ7OptionsC_tF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "startKycSdkSelfieViewController",
+            "printedName": "startKycSdkSelfieViewController()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC05starteF20SelfieViewControlleryyF",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC05starteF20SelfieViewControlleryyF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "startKycSdkIdBackViewController",
+            "printedName": "startKycSdkIdBackViewController(options:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "KycSdkIdBackOptions",
+                "printedName": "SCSoftAutonomousSolutionSdk.KycSdkIdBackOptions",
+                "usr": "s:27SCSoftAutonomousSolutionSdk03KycD13IdBackOptionsC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC05starteF20IdBackViewController7optionsy024SCSoftAutonomousSolutionF00efiJ7OptionsC_tF",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC05starteF20IdBackViewController7optionsy024SCSoftAutonomousSolutionF00efiJ7OptionsC_tF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "startKycSdkNfcViewController",
+            "printedName": "startKycSdkNfcViewController(options:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "KycSdkNfcOptions",
+                "printedName": "SCSoftAutonomousSolutionSdk.KycSdkNfcOptions",
+                "usr": "s:27SCSoftAutonomousSolutionSdk03KycD10NfcOptionsC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC05starteF17NfcViewController7optionsy024SCSoftAutonomousSolutionF00efI7OptionsC_tF",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC05starteF17NfcViewController7optionsy024SCSoftAutonomousSolutionF00efI7OptionsC_tF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "startKycSdkHeadPoseViewController",
+            "printedName": "startKycSdkHeadPoseViewController(model:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "KycSdkHeadPoseOptions",
+                "printedName": "SCSoftAutonomousSolutionSdk.KycSdkHeadPoseOptions",
+                "usr": "s:27SCSoftAutonomousSolutionSdk03KycD15HeadPoseOptionsC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC05starteF22HeadPoseViewController5modely024SCSoftAutonomousSolutionF00efiJ7OptionsC_tF",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC05starteF22HeadPoseViewController5modely024SCSoftAutonomousSolutionF00efiJ7OptionsC_tF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "dateFormat",
+            "printedName": "dateFormat(date:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.Date?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Date",
+                    "printedName": "Foundation.Date",
+                    "usr": "s:10Foundation4DateV"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC10dateFormat0H0SS10Foundation4DateVSg_tF",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC10dateFormat0H0SS10Foundation4DateVSg_tF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "convertDate",
+            "printedName": "convertDate(value:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC11convertDate5valueS2S_tF",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC11convertDate5valueS2S_tF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "convertDateFull",
+            "printedName": "convertDateFull(value:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC15convertDateFull5valueS2S_tF",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC15convertDateFull5valueS2S_tF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onListen",
+            "printedName": "onListen(withArguments:eventSink:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Flutter.FlutterError?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "FlutterError",
+                    "printedName": "Flutter.FlutterError",
+                    "usr": "c:objc(cs)FlutterError"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Any?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Any?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Any?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ProtocolComposition",
+                        "printedName": "Any"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@kyc_sdk_plugin@objc(cs)SwiftKycSdkPlugin(im)onListenWithArguments:eventSink:",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC8onListen13withArguments9eventSinkSo12FlutterErrorCSgypSg_yAJctF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "objc_name": "onListenWithArguments:eventSink:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onCancel",
+            "printedName": "onCancel(withArguments:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Flutter.FlutterError?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "FlutterError",
+                    "printedName": "Flutter.FlutterError",
+                    "usr": "c:objc(cs)FlutterError"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Any?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@kyc_sdk_plugin@objc(cs)SwiftKycSdkPlugin(im)onCancelWithArguments:",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC8onCancel13withArgumentsSo12FlutterErrorCSgypSg_tF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "objc_name": "onCancelWithArguments:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SwiftKycSdkPlugin",
+                "printedName": "kyc_sdk_plugin.SwiftKycSdkPlugin",
+                "usr": "c:@M@kyc_sdk_plugin@objc(cs)SwiftKycSdkPlugin"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@kyc_sdk_plugin@objc(cs)SwiftKycSdkPlugin(im)init",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginCACycfc",
+            "moduleName": "kyc_sdk_plugin",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "didCaptureSelfiePhoto",
+            "printedName": "didCaptureSelfiePhoto(model:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "KycSdkSelfieModel",
+                "printedName": "SCSoftAutonomousSolutionSdk.KycSdkSelfieModel",
+                "usr": "s:27SCSoftAutonomousSolutionSdk03KycD11SelfieModelC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC21didCaptureSelfiePhoto5modely024SCSoftAutonomousSolutionF00efJ5ModelC_tF",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC21didCaptureSelfiePhoto5modely024SCSoftAutonomousSolutionF00efJ5ModelC_tF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "didCloseSelfie",
+            "printedName": "didCloseSelfie()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC14didCloseSelfieyyF",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC14didCloseSelfieyyF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "didCaptureIdFrontPhoto",
+            "printedName": "didCaptureIdFrontPhoto(model:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "KycSdkIdFrontModel",
+                "printedName": "SCSoftAutonomousSolutionSdk.KycSdkIdFrontModel",
+                "usr": "s:27SCSoftAutonomousSolutionSdk03KycD12IdFrontModelC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC22didCaptureIdFrontPhoto5modely024SCSoftAutonomousSolutionF00efjK5ModelC_tF",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC22didCaptureIdFrontPhoto5modely024SCSoftAutonomousSolutionF00efjK5ModelC_tF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "didCloseIdFront",
+            "printedName": "didCloseIdFront()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC15didCloseIdFrontyyF",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC15didCloseIdFrontyyF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "didCaptureIdBackPhoto",
+            "printedName": "didCaptureIdBackPhoto(model:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "KycSdkIdBackModel",
+                "printedName": "SCSoftAutonomousSolutionSdk.KycSdkIdBackModel",
+                "usr": "s:27SCSoftAutonomousSolutionSdk03KycD11IdBackModelC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC21didCaptureIdBackPhoto5modely024SCSoftAutonomousSolutionF00efjK5ModelC_tF",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC21didCaptureIdBackPhoto5modely024SCSoftAutonomousSolutionF00efjK5ModelC_tF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "didCloseIdBack",
+            "printedName": "didCloseIdBack()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC14didCloseIdBackyyF",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC14didCloseIdBackyyF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "didReadNfc",
+            "printedName": "didReadNfc(didRead:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "KycSdkNfcModel",
+                "printedName": "SCSoftAutonomousSolutionSdk.KycSdkNfcModel",
+                "usr": "s:27SCSoftAutonomousSolutionSdk03KycD8NfcModelC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC10didReadNfc0hI0y024SCSoftAutonomousSolutionF00efJ5ModelC_tF",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC10didReadNfc0hI0y024SCSoftAutonomousSolutionF00efJ5ModelC_tF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "didCloseNfc",
+            "printedName": "didCloseNfc()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC11didCloseNfcyyF",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC11didCloseNfcyyF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "didAutonomousFacePredictionHeadPoseSuccess",
+            "printedName": "didAutonomousFacePredictionHeadPoseSuccess(model:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "KycSdkHeadPoseModel",
+                "printedName": "SCSoftAutonomousSolutionSdk.KycSdkHeadPoseModel",
+                "usr": "s:27SCSoftAutonomousSolutionSdk03KycD13HeadPoseModelC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC42didAutonomousFacePredictionHeadPoseSuccess5modely06SCSofti8SolutionF00eflM5ModelC_tF",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC42didAutonomousFacePredictionHeadPoseSuccess5modely06SCSofti8SolutionF00eflM5ModelC_tF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "sendServiceScreenRecord",
+            "printedName": "sendServiceScreenRecord(recordBase64:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC23sendServiceScreenRecord12recordBase64y10Foundation3URLV_tF",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC23sendServiceScreenRecord12recordBase64y10Foundation3URLV_tF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "didCloseHeadPose",
+            "printedName": "didCloseHeadPose()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14kyc_sdk_plugin17SwiftKycSdkPluginC16didCloseHeadPoseyyF",
+            "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC16didCloseHeadPoseyyF",
+            "moduleName": "kyc_sdk_plugin",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@kyc_sdk_plugin@objc(cs)SwiftKycSdkPlugin",
+        "mangledName": "$s14kyc_sdk_plugin17SwiftKycSdkPluginC",
+        "moduleName": "kyc_sdk_plugin",
+        "isOpen": true,
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "KycSdkSelfieDelegate",
+            "printedName": "KycSdkSelfieDelegate",
+            "usr": "s:27SCSoftAutonomousSolutionSdk03KycD14SelfieDelegateP",
+            "mangledName": "$s27SCSoftAutonomousSolutionSdk03KycD14SelfieDelegateP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "KycSdkIdFrontDelegate",
+            "printedName": "KycSdkIdFrontDelegate",
+            "usr": "s:27SCSoftAutonomousSolutionSdk03KycD15IdFrontDelegateP",
+            "mangledName": "$s27SCSoftAutonomousSolutionSdk03KycD15IdFrontDelegateP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "KycSdkIdBackDelegate",
+            "printedName": "KycSdkIdBackDelegate",
+            "usr": "s:27SCSoftAutonomousSolutionSdk03KycD14IdBackDelegateP",
+            "mangledName": "$s27SCSoftAutonomousSolutionSdk03KycD14IdBackDelegateP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "KycSdkNfcDelegate",
+            "printedName": "KycSdkNfcDelegate",
+            "usr": "s:27SCSoftAutonomousSolutionSdk03KycD11NfcDelegateP",
+            "mangledName": "$s27SCSoftAutonomousSolutionSdk03KycD11NfcDelegateP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "KycSdkHeadPoseDelegate",
+            "printedName": "KycSdkHeadPoseDelegate",
+            "usr": "s:27SCSoftAutonomousSolutionSdk03KycD16HeadPoseDelegateP",
+            "mangledName": "$s27SCSoftAutonomousSolutionSdk03KycD16HeadPoseDelegateP"
+          }
+        ]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/ozgen\/Desktop\/Projects\/Flutter\/scsoftkyc\/ios\/Classes\/SwiftKycSdkPlugin.swift",
+      "kind": "StringLiteral",
+      "offset": 84,
+      "length": 16,
+      "value": "\"id_front_photo\""
+    },
+    {
+      "filePath": "\/Users\/ozgen\/Desktop\/Projects\/Flutter\/scsoftkyc\/ios\/Classes\/SwiftKycSdkPlugin.swift",
+      "kind": "StringLiteral",
+      "offset": 121,
+      "length": 15,
+      "value": "\"id_back_photo\""
+    },
+    {
+      "filePath": "\/Users\/ozgen\/Desktop\/Projects\/Flutter\/scsoftkyc\/ios\/Classes\/SwiftKycSdkPlugin.swift",
+      "kind": "StringLiteral",
+      "offset": 157,
+      "length": 14,
+      "value": "\"selfie_photo\""
+    },
+    {
+      "filePath": "\/Users\/ozgen\/Desktop\/Projects\/Flutter\/scsoftkyc\/ios\/Classes\/SwiftKycSdkPlugin.swift",
+      "kind": "StringLiteral",
+      "offset": 184,
+      "length": 5,
+      "value": "\"nfc\""
+    },
+    {
+      "filePath": "\/Users\/ozgen\/Desktop\/Projects\/Flutter\/scsoftkyc\/ios\/Classes\/SwiftKycSdkPlugin.swift",
+      "kind": "StringLiteral",
+      "offset": 207,
+      "length": 11,
+      "value": "\"head_pose\""
+    }
+  ]
+}

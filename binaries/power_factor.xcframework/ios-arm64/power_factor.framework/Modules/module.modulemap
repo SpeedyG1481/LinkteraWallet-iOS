@@ -1,0 +1,11 @@
+framework module power_factor {
+  umbrella header "power_factor-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module power_factor.Swift {
+  header "power_factor-Swift.h"
+  requires objc
+}

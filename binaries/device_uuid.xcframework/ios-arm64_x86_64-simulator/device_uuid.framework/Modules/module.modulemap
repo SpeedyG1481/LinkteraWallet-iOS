@@ -1,0 +1,11 @@
+framework module device_uuid {
+  umbrella header "device_uuid-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module device_uuid.Swift {
+  header "device_uuid-Swift.h"
+  requires objc
+}
