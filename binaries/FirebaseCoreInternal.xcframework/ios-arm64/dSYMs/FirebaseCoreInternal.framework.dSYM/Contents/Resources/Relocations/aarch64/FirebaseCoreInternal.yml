@@ -1,6 +1,6 @@
 ---
 triple:          'arm64-apple-darwin'
-binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/binpay_flutter/ios_flutter_build/Release/iphoneos/Release-iphoneos/FirebaseCoreInternal/FirebaseCoreInternal.framework/FirebaseCoreInternal'
+binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/LinkteraWallet-iOS/binaries/Release/iphoneos/Release-iphoneos/FirebaseCoreInternal/FirebaseCoreInternal.framework/FirebaseCoreInternal'
 relocations:
   - { offset: 0x5AAAA, size: 0x8, addend: 0x0, symName: _FirebaseCoreInternalVersionString, symObjAddr: 0x0, symBinAddr: 0x16D90, symSize: 0x0 }
   - { offset: 0x5AADF, size: 0x8, addend: 0x0, symName: _FirebaseCoreInternalVersionNumber, symObjAddr: 0x38, symBinAddr: 0x16DC8, symSize: 0x0 }
@@ -213,7 +213,7 @@ relocations:
   - { offset: 0x62F68, size: 0x8, addend: 0x0, symName: '_$s20FirebaseCoreInternal10RingBufferV12makeIterators08IndexingG0VySayxGGyFAA9HeartbeatV_Tg5', symObjAddr: 0x1E64, symBinAddr: 0xA7EC, symSize: 0x238 }
   - { offset: 0x631BD, size: 0x8, addend: 0x0, symName: '_$s20FirebaseCoreInternal16HeartbeatsBundleV10CodingKeys33_DA2CD673DFB14EB4EF31ED1E0C34DBC6LLO11stringValueAFSgSS_tcfCTf4nd_n', symObjAddr: 0x45E0, symBinAddr: 0xCE68, symSize: 0x144 }
   - { offset: 0x6324B, size: 0x8, addend: 0x0, symName: '_$s20FirebaseCoreInternal16HeartbeatsBundleV4fromACs7Decoder_p_tKcfCTf4nd_n', symObjAddr: 0x4724, symBinAddr: 0xCFAC, symSize: 0x204 }
-  - { offset: 0x633A2, size: 0x8, addend: 0x0, symName: '_$s20FirebaseCoreInternal17HeartbeatsPayloadV05emptyE0ACvpZ', symObjAddr: 0xD300, symBinAddr: 0x20848, symSize: 0x0 }
+  - { offset: 0x633A2, size: 0x8, addend: 0x0, symName: '_$s20FirebaseCoreInternal17HeartbeatsPayloadV05emptyE0ACvpZ', symObjAddr: 0xD2F8, symBinAddr: 0x20848, symSize: 0x0 }
   - { offset: 0x63767, size: 0x8, addend: 0x0, symName: '_$s20FirebaseCoreInternal17HeartbeatsPayloadV13dateFormatterSo06NSDateG0CvpZ', symObjAddr: 0x2B78, symBinAddr: 0x1E480, symSize: 0x0 }
   - { offset: 0x637C1, size: 0x8, addend: 0x0, symName: '_$s20FirebaseCoreInternal17HeartbeatsPayloadV11headerValueSSyF', symObjAddr: 0x0, symBinAddr: 0xD7D4, symSize: 0x440 }
   - { offset: 0x638ED, size: 0x8, addend: 0x0, symName: '_$s10Foundation4DataV20FirebaseCoreInternalE22base64URLEncodedString7optionsSSSo27NSDataBase64EncodingOptionsV_tF', symObjAddr: 0xED8, symBinAddr: 0xE5DC, symSize: 0x154 }

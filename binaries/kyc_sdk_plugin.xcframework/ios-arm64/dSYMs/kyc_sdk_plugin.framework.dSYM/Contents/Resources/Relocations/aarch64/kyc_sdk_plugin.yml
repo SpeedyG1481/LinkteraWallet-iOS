@@ -1,6 +1,6 @@
 ---
 triple:          'arm64-apple-darwin'
-binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/binpay_flutter/ios_flutter_build/Release/iphoneos/Release-iphoneos/kyc_sdk_plugin/kyc_sdk_plugin.framework/kyc_sdk_plugin'
+binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/LinkteraWallet-iOS/binaries/Release/iphoneos/Release-iphoneos/kyc_sdk_plugin/kyc_sdk_plugin.framework/kyc_sdk_plugin'
 relocations:
   - { offset: 0x790A7, size: 0x8, addend: 0x0, symName: _kyc_sdk_pluginVersionString, symObjAddr: 0x0, symBinAddr: 0x9F80, symSize: 0x0 }
   - { offset: 0x790DC, size: 0x8, addend: 0x0, symName: _kyc_sdk_pluginVersionNumber, symObjAddr: 0x30, symBinAddr: 0x9FB0, symSize: 0x0 }

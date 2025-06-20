@@ -1,6 +1,6 @@
 ---
 triple:          'arm64-apple-darwin'
-binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/binpay_flutter/ios_flutter_build/Release/iphoneos/Release-iphoneos/OrderedSet/OrderedSet.framework/OrderedSet'
+binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/LinkteraWallet-iOS/binaries/Release/iphoneos/Release-iphoneos/OrderedSet/OrderedSet.framework/OrderedSet'
 relocations:
   - { offset: 0x5926A, size: 0x8, addend: 0x0, symName: _OrderedSetVersionString, symObjAddr: 0x0, symBinAddr: 0xB300, symSize: 0x0 }
   - { offset: 0x5929F, size: 0x8, addend: 0x0, symName: _OrderedSetVersionNumber, symObjAddr: 0x28, symBinAddr: 0xB328, symSize: 0x0 }

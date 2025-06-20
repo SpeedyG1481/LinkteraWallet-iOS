@@ -1,6 +1,6 @@
 ---
 triple:          'arm64-apple-darwin'
-binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/binpay_flutter/ios_flutter_build/Release/iphoneos/Release-iphoneos/flutter_native_splash/flutter_native_splash.framework/flutter_native_splash'
+binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/LinkteraWallet-iOS/binaries/Release/iphoneos/Release-iphoneos/flutter_native_splash/flutter_native_splash.framework/flutter_native_splash'
 relocations:
   - { offset: 0x3D1A, size: 0x8, addend: 0x0, symName: _flutter_native_splashVersionString, symObjAddr: 0x0, symBinAddr: 0x4320, symSize: 0x0 }
   - { offset: 0x3D4E, size: 0x8, addend: 0x0, symName: _flutter_native_splashVersionNumber, symObjAddr: 0x38, symBinAddr: 0x4358, symSize: 0x0 }

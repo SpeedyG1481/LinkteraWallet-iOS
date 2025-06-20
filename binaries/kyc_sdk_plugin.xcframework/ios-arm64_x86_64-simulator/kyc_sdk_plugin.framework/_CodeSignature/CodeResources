@@ -46,7 +46,7 @@
 		</data>
 		<key>Modules/kyc_sdk_plugin.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		rN+MLInjdZuYTxTvmNS6/ZicEy4=
+		LNy1uFijZVXbM6WymFgKXgvh0qE=
 		</data>
 		<key>Modules/kyc_sdk_plugin.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -66,7 +66,7 @@
 		</data>
 		<key>Modules/kyc_sdk_plugin.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		BYBgQg2avF0sDuv0GbeB1pmhAcE=
+		jh4Y3z9cPmyoU0QdAZC8u/TSnak=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -142,7 +142,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tS88RDib6OuiSeF27Nfrgao8FzeeuSTqkGqK+1M4qXU=
+			lylq+LG074YaMKqchtcwh5Lm/kqm9MR0RBVYsyff10A=
 			</data>
 		</dict>
 		<key>Modules/kyc_sdk_plugin.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
@@ -177,7 +177,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			hnqlHpYAvbBqm/rW6QIo8xvV4GuwGxbUOlD+2KlM/n4=
+			RgQdenvng3QLUfz3rc2EUJ0M7xSq5Z+YJhAWBablous=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

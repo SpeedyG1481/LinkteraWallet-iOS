@@ -1,6 +1,6 @@
 ---
 triple:          'arm64-apple-darwin'
-binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/binpay_flutter/ios_flutter_build/Release/iphoneos/Release-iphoneos/XYUUID/XYUUID.framework/XYUUID'
+binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/LinkteraWallet-iOS/binaries/Release/iphoneos/Release-iphoneos/XYUUID/XYUUID.framework/XYUUID'
 relocations:
   - { offset: 0x59DE9, size: 0x8, addend: 0x0, symName: _XYUUIDVersionString, symObjAddr: 0x0, symBinAddr: 0x5EE0, symSize: 0x0 }
   - { offset: 0x59E1E, size: 0x8, addend: 0x0, symName: _XYUUIDVersionNumber, symObjAddr: 0x28, symBinAddr: 0x5F08, symSize: 0x0 }
@@ -15,8 +15,8 @@ relocations:
   - { offset: 0x5AA53, size: 0x8, addend: 0x0, symName: '+[XYKeyChain deleteDataWithServiceDomain:]', symObjAddr: 0x2BC, symBinAddr: 0x49F0, symSize: 0x40 }
   - { offset: 0x5AB3B, size: 0x8, addend: 0x0, symName: '+[XYUUID shareManager]', symObjAddr: 0x0, symBinAddr: 0x4A30, symSize: 0x40 }
   - { offset: 0x5AB4E, size: 0x8, addend: 0x0, symName: '+[XYUUID shareManager]', symObjAddr: 0x0, symBinAddr: 0x4A30, symSize: 0x40 }
-  - { offset: 0x5AB78, size: 0x8, addend: 0x0, symName: _shareManager.instantce, symObjAddr: 0x3528, symBinAddr: 0x8B18, symSize: 0x0 }
-  - { offset: 0x5AB8E, size: 0x8, addend: 0x0, symName: _shareManager.onceToken, symObjAddr: 0x3530, symBinAddr: 0x8B20, symSize: 0x0 }
+  - { offset: 0x5AB78, size: 0x8, addend: 0x0, symName: _shareManager.instantce, symObjAddr: 0x3500, symBinAddr: 0x8B18, symSize: 0x0 }
+  - { offset: 0x5AB8E, size: 0x8, addend: 0x0, symName: _shareManager.onceToken, symObjAddr: 0x3508, symBinAddr: 0x8B20, symSize: 0x0 }
   - { offset: 0x5AC4D, size: 0x8, addend: 0x0, symName: '___22+[XYUUID shareManager]_block_invoke', symObjAddr: 0x40, symBinAddr: 0x4A70, symSize: 0x4C }
   - { offset: 0x5AC74, size: 0x8, addend: 0x0, symName: '+[XYUUID uuid]', symObjAddr: 0x8C, symBinAddr: 0x4ABC, symSize: 0x4C }
   - { offset: 0x5ACA7, size: 0x8, addend: 0x0, symName: '+[XYUUID uuidForInstall]', symObjAddr: 0xD8, symBinAddr: 0x4B08, symSize: 0xD4 }

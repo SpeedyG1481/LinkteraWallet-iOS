@@ -216,13 +216,6 @@
       },
       {
         "kind": "Import",
-        "name": "SwiftUI",
-        "printedName": "SwiftUI",
-        "declKind": "Import",
-        "moduleName": "power_factor"
-      },
-      {
-        "kind": "Import",
         "name": "Flutter",
         "printedName": "Flutter",
         "declKind": "Import",
@@ -232,13 +225,6 @@
         "kind": "Import",
         "name": "UIKit",
         "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "power_factor"
-      },
-      {
-        "kind": "Import",
-        "name": "SwiftUI",
-        "printedName": "SwiftUI",
         "declKind": "Import",
         "moduleName": "power_factor"
       },
@@ -435,6 +421,16 @@
             "mangledName": "$ss28CustomDebugStringConvertibleP"
           }
         ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "power_factor",
+        "declAttributes": [
+          "RawDocComment"
+        ]
       }
     ],
     "json_format_version": 8
@@ -471,7 +467,7 @@
     {
       "filePath": "\/Users\/ozgen\/Desktop\/Projects\/Flutter\/payify-power-factor\/ios\/Classes\/Models\/FLUserListResponseModel.swift",
       "kind": "Array",
-      "offset": 362,
+      "offset": 385,
       "length": 2,
       "value": "[]"
     },

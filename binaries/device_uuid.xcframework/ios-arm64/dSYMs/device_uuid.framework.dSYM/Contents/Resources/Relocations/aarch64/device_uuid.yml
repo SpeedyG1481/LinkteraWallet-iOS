@@ -1,6 +1,6 @@
 ---
 triple:          'arm64-apple-darwin'
-binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/binpay_flutter/ios_flutter_build/Release/iphoneos/Release-iphoneos/device_uuid/device_uuid.framework/device_uuid'
+binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/LinkteraWallet-iOS/binaries/Release/iphoneos/Release-iphoneos/device_uuid/device_uuid.framework/device_uuid'
 relocations:
   - { offset: 0x60DB0, size: 0x8, addend: 0x0, symName: _device_uuidVersionString, symObjAddr: 0x0, symBinAddr: 0xA8C0, symSize: 0x0 }
   - { offset: 0x60DE5, size: 0x8, addend: 0x0, symName: _device_uuidVersionNumber, symObjAddr: 0x30, symBinAddr: 0xA8F0, symSize: 0x0 }

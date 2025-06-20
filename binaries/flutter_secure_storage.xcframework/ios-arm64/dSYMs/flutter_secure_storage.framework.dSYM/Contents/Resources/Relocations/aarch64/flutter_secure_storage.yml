@@ -1,6 +1,6 @@
 ---
 triple:          'arm64-apple-darwin'
-binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/binpay_flutter/ios_flutter_build/Release/iphoneos/Release-iphoneos/flutter_secure_storage/flutter_secure_storage.framework/flutter_secure_storage'
+binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/LinkteraWallet-iOS/binaries/Release/iphoneos/Release-iphoneos/flutter_secure_storage/flutter_secure_storage.framework/flutter_secure_storage'
 relocations:
   - { offset: 0x60CEC, size: 0x8, addend: 0x0, symName: _flutter_secure_storageVersionString, symObjAddr: 0x0, symBinAddr: 0xCAC0, symSize: 0x0 }
   - { offset: 0x60D21, size: 0x8, addend: 0x0, symName: _flutter_secure_storageVersionNumber, symObjAddr: 0x38, symBinAddr: 0xCAF8, symSize: 0x0 }

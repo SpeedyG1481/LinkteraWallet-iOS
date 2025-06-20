@@ -1,6 +1,6 @@
 ---
 triple:          'arm64-apple-darwin'
-binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/binpay_flutter/ios_flutter_build/Release/iphoneos/Release-iphoneos/syncfusion_flutter_pdfviewer/syncfusion_flutter_pdfviewer.framework/syncfusion_flutter_pdfviewer'
+binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/LinkteraWallet-iOS/binaries/Release/iphoneos/Release-iphoneos/syncfusion_flutter_pdfviewer/syncfusion_flutter_pdfviewer.framework/syncfusion_flutter_pdfviewer'
 relocations:
   - { offset: 0x61432, size: 0x8, addend: 0x0, symName: _syncfusion_flutter_pdfviewerVersionString, symObjAddr: 0x0, symBinAddr: 0xB1C0, symSize: 0x0 }
   - { offset: 0x61467, size: 0x8, addend: 0x0, symName: _syncfusion_flutter_pdfviewerVersionNumber, symObjAddr: 0x40, symBinAddr: 0xB200, symSize: 0x0 }

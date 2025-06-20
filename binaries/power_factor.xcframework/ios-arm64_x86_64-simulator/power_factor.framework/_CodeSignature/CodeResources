@@ -10,7 +10,7 @@
 		</data>
 		<key>Headers/power_factor-Swift.h</key>
 		<data>
-		cLYAr4kcYPmswohKT4BIuJo2dh8=
+		oClz1E/2Yw+qKAddJdlOAHKOoK0=
 		</data>
 		<key>Headers/power_factor-umbrella.h</key>
 		<data>
@@ -26,19 +26,19 @@
 		</data>
 		<key>Modules/power_factor.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		VeZ/VMC3f7w85eZ4/trdyMrpOqs=
+		+Osz9zPFEbXJiFuRlQVQ75XZUHA=
 		</data>
 		<key>Modules/power_factor.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		dGv8ycnX79Pfc9/5ggzbvNQtH2M=
+		im6dQ/lxtBErek7IiT49UD8X46k=
 		</data>
 		<key>Modules/power_factor.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		AH3rlkkIyKGtqsQhoY/AVLIonws=
+		VPA0DOck4OtQwmM20Pb0QCcwvac=
 		</data>
 		<key>Modules/power_factor.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		nogs92rIGnCPfu6BK4I7d3jQoWw=
+		UB6+weLrJ8g/H8qUYKb1pWHZvHA=
 		</data>
 		<key>Modules/power_factor.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -46,19 +46,19 @@
 		</data>
 		<key>Modules/power_factor.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		nogs92rIGnCPfu6BK4I7d3jQoWw=
+		UB6+weLrJ8g/H8qUYKb1pWHZvHA=
 		</data>
 		<key>Modules/power_factor.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		xFhDYNZmr6vR3cbvlUN1F3q5rr0=
+		MfVuv5njTJaYxuJWqp0KjyqmJk4=
 		</data>
 		<key>Modules/power_factor.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		AH3rlkkIyKGtqsQhoY/AVLIonws=
+		VPA0DOck4OtQwmM20Pb0QCcwvac=
 		</data>
 		<key>Modules/power_factor.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		4wuZpcDN2yNeo9xNWXq+W2eBtns=
+		pt24ys7GU331+1jS7YOvbjQx9Uk=
 		</data>
 		<key>Modules/power_factor.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -66,11 +66,11 @@
 		</data>
 		<key>Modules/power_factor.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		4wuZpcDN2yNeo9xNWXq+W2eBtns=
+		pt24ys7GU331+1jS7YOvbjQx9Uk=
 		</data>
 		<key>Modules/power_factor.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		1JT9LzXuz5AN2fP1AAdokfMzVkQ=
+		DTYVJ8q2/9e1ifeeP5NY0Madi0Q=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -86,7 +86,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			47V3zpUqJm1QyRg8v92SN/KSx2xpT6anaOBuglRz5Vw=
+			UfpKtg+4iDa3Cg1xdvXzrpSgKxFQJL0lMQyvJ2r/fNw=
 			</data>
 		</dict>
 		<key>Headers/power_factor-umbrella.h</key>
@@ -107,28 +107,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			TvPx6Z+XdG8qp5rShOaAtKBpDcOSmbucltwzWew7z8E=
+			1KT0+MenNTEmSnTpKzQayLF1XFQImj8TPeq/ki59cFw=
 			</data>
 		</dict>
 		<key>Modules/power_factor.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Ev/GUlKEwJGynkbdw3BGekJ8ztsu7YXNXnvDk6X8QwE=
+			bAIFvs5i8jXiyoB2FkK5VktIlUdkuCGSJ58Iu6oILAU=
 			</data>
 		</dict>
 		<key>Modules/power_factor.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/KuKTLxqGpqHkPIrEe0yuMmkoLN3ff02isyvfp63BOI=
+			QHDsSXKg7E6KpTeu+y9jY/MJOyAGi/Mj+OLwa1ZCjqw=
 			</data>
 		</dict>
 		<key>Modules/power_factor.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			c/4BGQE4DDbgqetUq/pbUs9WOIEE0/o2hO27dpaKb04=
+			+xISmEHSz0jH5PrfkXZ5ni2PR8/1OLYl43H9nV/n6Oc=
 			</data>
 		</dict>
 		<key>Modules/power_factor.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
@@ -142,28 +142,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			c/4BGQE4DDbgqetUq/pbUs9WOIEE0/o2hO27dpaKb04=
+			+xISmEHSz0jH5PrfkXZ5ni2PR8/1OLYl43H9nV/n6Oc=
 			</data>
 		</dict>
 		<key>Modules/power_factor.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Vg9aHzh4jd5FsnMQYbDwE2dC1RCKsN4B/wQFqVc57AI=
+			lZuTUEgtPj/vgLC6D3nxeuUZjdrB5V/GAblAiqoLR8E=
 			</data>
 		</dict>
 		<key>Modules/power_factor.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/KuKTLxqGpqHkPIrEe0yuMmkoLN3ff02isyvfp63BOI=
+			QHDsSXKg7E6KpTeu+y9jY/MJOyAGi/Mj+OLwa1ZCjqw=
 			</data>
 		</dict>
 		<key>Modules/power_factor.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			p6/GWW/KofqbNuNVFgDVn34ee+r0TE/oE+68kfvt1s0=
+			i5JAUcj/kGp1xnBFS2Nq+q2JUyzE9uJZiCn7BlFG0x0=
 			</data>
 		</dict>
 		<key>Modules/power_factor.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
@@ -177,14 +177,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			p6/GWW/KofqbNuNVFgDVn34ee+r0TE/oE+68kfvt1s0=
+			i5JAUcj/kGp1xnBFS2Nq+q2JUyzE9uJZiCn7BlFG0x0=
 			</data>
 		</dict>
 		<key>Modules/power_factor.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			2HFXw73cHwC8i4/j1ojnrfoDWWaTJDszEDbq9ML33hg=
+			eyErsizqJ09tv7xMcekpEoSDjKmqcsRCs9e4GeFh0CA=
 			</data>
 		</dict>
 	</dict>

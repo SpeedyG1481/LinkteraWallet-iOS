@@ -3,18 +3,15 @@
 // swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 4.2 -enforce-exclusivity=checked -O -module-name PowerFactor
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 import CommonCrypto
+import CoreData
 import CryptoKit
 import Darwin
 import DeveloperToolsSupport
-import Dispatch
 import Foundation
 import LocalAuthentication
 import MachO
-import Foundation.NSData
-import Foundation.NSUUID
 import PDFKit
 @_exported import PowerFactor
-import SQLiteForIphoneOs
 import Security
 import Swift
 import SwiftUI
@@ -25,87 +22,6 @@ import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
 import zlib
-public protocol ExpressionType : PowerFactor.Expressible {
-  associatedtype UnderlyingType = Swift.Void
-  var template: Swift.String { get }
-  var bindings: [(any PowerFactor.Binding)?] { get }
-  init(_ template: Swift.String, _ bindings: [(any PowerFactor.Binding)?])
-}
-extension PowerFactor.ExpressionType {
-  public init(literal: Swift.String)
-  public init(_ identifier: Swift.String)
-  public init<U>(_ expression: U) where U : PowerFactor.ExpressionType
-}
-public struct Expression<Datatype> : PowerFactor.ExpressionType {
-  public typealias UnderlyingType = Datatype
-  public var template: Swift.String
-  public var bindings: [(any PowerFactor.Binding)?]
-  public init(_ template: Swift.String, _ bindings: [(any PowerFactor.Binding)?])
-}
-public protocol Expressible {
-  var expression: PowerFactor.Expression<Swift.Void> { get }
-}
-extension PowerFactor.Expressible {
-  public func asSQL() -> Swift.String
-}
-extension PowerFactor.ExpressionType {
-  public var expression: PowerFactor.Expression<Swift.Void> {
-    get
-  }
-  public var asc: any PowerFactor.Expressible {
-    get
-  }
-  public var desc: any PowerFactor.Expressible {
-    get
-  }
-}
-extension PowerFactor.ExpressionType where Self.UnderlyingType : PowerFactor.Value {
-  public init(value: Self.UnderlyingType)
-}
-extension PowerFactor.ExpressionType where Self.UnderlyingType : PowerFactor._OptionalType, Self.UnderlyingType.WrappedType : PowerFactor.Value {
-  public static var null: Self {
-    get
-  }
-  public init(value: Self.UnderlyingType.WrappedType?)
-}
-extension PowerFactor.Value {
-  public var expression: PowerFactor.Expression<Swift.Void> {
-    get
-  }
-}
-public let rowid: PowerFactor.Expression<Swift.Int64>
-public func cast<T, U>(_ expression: PowerFactor.Expression<T>) -> PowerFactor.Expression<U> where T : PowerFactor.Value, U : PowerFactor.Value
-public func cast<T, U>(_ expression: PowerFactor.Expression<T?>) -> PowerFactor.Expression<U?> where T : PowerFactor.Value, U : PowerFactor.Value
-public struct Blob {
-  public let bytes: [Swift.UInt8]
-  public init(bytes: [Swift.UInt8])
-  public init(bytes: Swift.UnsafeRawPointer, length: Swift.Int)
-  public func toHex() -> Swift.String
-}
-extension PowerFactor.Blob : Swift.CustomStringConvertible {
-  public var description: Swift.String {
-    get
-  }
-}
-extension PowerFactor.Blob : Swift.Equatable {
-}
-public func == (lhs: PowerFactor.Blob, rhs: PowerFactor.Blob) -> Swift.Bool
-public enum Collation {
-  case binary
-  case nocase
-  case rtrim
-  case custom(Swift.String)
-}
-extension PowerFactor.Collation : PowerFactor.Expressible {
-  public var expression: PowerFactor.Expression<Swift.Void> {
-    get
-  }
-}
-extension PowerFactor.Collation : Swift.CustomStringConvertible {
-  public var description: Swift.String {
-    get
-  }
-}
 public class CMAC : PowerFactor.Authenticator {
   public enum Error : Swift.Error {
     case wrongKeyLength
@@ -281,83 +197,6 @@ final public class GCM : PowerFactor.BlockMode {
 }
 extension PowerFactor.HMAC {
   convenience public init(key: Swift.String, variant: PowerFactor.HMAC.Variant = .md5) throws
-}
-extension PowerFactor.Module {
-  public static func FTS4(_ column: any PowerFactor.Expressible, _ more: any PowerFactor.Expressible...) -> PowerFactor.Module
-  public static func FTS4(_ columns: [any PowerFactor.Expressible] = [], tokenize tokenizer: PowerFactor.Tokenizer? = nil) -> PowerFactor.Module
-  public static func FTS4(_ config: PowerFactor.FTS4Config) -> PowerFactor.Module
-}
-extension PowerFactor.VirtualTable {
-  public func match(_ pattern: Swift.String) -> PowerFactor.Expression<Swift.Bool>
-  public func match(_ pattern: PowerFactor.Expression<Swift.String>) -> PowerFactor.Expression<Swift.Bool>
-  public func match(_ pattern: PowerFactor.Expression<Swift.String?>) -> PowerFactor.Expression<Swift.Bool?>
-  public func match(_ pattern: Swift.String) -> any PowerFactor.QueryType
-  public func match(_ pattern: PowerFactor.Expression<Swift.String>) -> any PowerFactor.QueryType
-  public func match(_ pattern: PowerFactor.Expression<Swift.String?>) -> any PowerFactor.QueryType
-}
-public struct Tokenizer {
-  public static let Simple: PowerFactor.Tokenizer
-  public static let Porter: PowerFactor.Tokenizer
-  public static func Unicode61(removeDiacritics: Swift.Bool? = nil, tokenchars: Swift.Set<Swift.Character> = [], separators: Swift.Set<Swift.Character> = []) -> PowerFactor.Tokenizer
-  public static func Custom(_ name: Swift.String) -> PowerFactor.Tokenizer
-  public let name: Swift.String
-  public let arguments: [Swift.String]
-}
-extension PowerFactor.Tokenizer : Swift.CustomStringConvertible {
-  public var description: Swift.String {
-    get
-  }
-}
-@_hasMissingDesignatedInitializers open class FTSConfig {
-  public enum ColumnOption {
-    case unindexed
-    public static func == (a: PowerFactor.FTSConfig.ColumnOption, b: PowerFactor.FTSConfig.ColumnOption) -> Swift.Bool
-    public func hash(into hasher: inout Swift.Hasher)
-    public var hashValue: Swift.Int {
-      get
-    }
-  }
-  @discardableResult
-  open func column(_ column: any PowerFactor.Expressible, _ options: [PowerFactor.FTSConfig.ColumnOption] = []) -> Self
-  @discardableResult
-  open func columns(_ columns: [any PowerFactor.Expressible]) -> Self
-  open func tokenizer(_ tokenizer: PowerFactor.Tokenizer?) -> Self
-  open func prefix(_ prefix: [Swift.Int]) -> Self
-  open func externalContent(_ schema: any PowerFactor.SchemaType) -> Self
-  open func contentless() -> Self
-  @objc deinit
-}
-@_inheritsConvenienceInitializers open class FTS4Config : PowerFactor.FTSConfig {
-  public enum MatchInfo : Swift.CustomStringConvertible {
-    case fts3
-    public var description: Swift.String {
-      get
-    }
-    public static func == (a: PowerFactor.FTS4Config.MatchInfo, b: PowerFactor.FTS4Config.MatchInfo) -> Swift.Bool
-    public func hash(into hasher: inout Swift.Hasher)
-    public var hashValue: Swift.Int {
-      get
-    }
-  }
-  public enum Order : Swift.CustomStringConvertible {
-    case asc
-    case desc
-    public var description: Swift.String {
-      get
-    }
-    public static func == (a: PowerFactor.FTS4Config.Order, b: PowerFactor.FTS4Config.Order) -> Swift.Bool
-    public func hash(into hasher: inout Swift.Hasher)
-    public var hashValue: Swift.Int {
-      get
-    }
-  }
-  public init()
-  open func compress(_ functionName: Swift.String) -> Self
-  open func uncompress(_ functionName: Swift.String) -> Self
-  open func languageId(_ columnName: Swift.String) -> Self
-  open func matchInfo(_ matchInfo: PowerFactor.FTS4Config.MatchInfo) -> Self
-  open func order(_ order: PowerFactor.FTS4Config.Order) -> Self
-  @objc deinit
 }
 @objc final public class Token : ObjectiveC.NSObject {
   final public let account: Swift.String
@@ -580,71 +419,6 @@ extension PowerFactor.PKCS5 {
     }
   }
 }
-public protocol Binding {
-}
-public protocol Number : PowerFactor.Binding {
-}
-public protocol Value : PowerFactor.Expressible {
-  associatedtype ValueType = Self
-  associatedtype Datatype : PowerFactor.Binding
-  static var declaredDatatype: Swift.String { get }
-  static func fromDatatypeValue(_ datatypeValue: Self.Datatype) -> Self.ValueType
-  var datatypeValue: Self.Datatype { get }
-}
-extension Swift.Double : PowerFactor.Number, PowerFactor.Value {
-  public static let declaredDatatype: Swift.String
-  public static func fromDatatypeValue(_ datatypeValue: Swift.Double) -> Swift.Double
-  public var datatypeValue: Swift.Double {
-    get
-  }
-  public typealias Datatype = Swift.Double
-  public typealias ValueType = Swift.Double
-}
-extension Swift.Int64 : PowerFactor.Number, PowerFactor.Value {
-  public static let declaredDatatype: Swift.String
-  public static func fromDatatypeValue(_ datatypeValue: Swift.Int64) -> Swift.Int64
-  public var datatypeValue: Swift.Int64 {
-    get
-  }
-  public typealias Datatype = Swift.Int64
-  public typealias ValueType = Swift.Int64
-}
-extension Swift.String : PowerFactor.Binding, PowerFactor.Value {
-  public static let declaredDatatype: Swift.String
-  public static func fromDatatypeValue(_ datatypeValue: Swift.String) -> Swift.String
-  public var datatypeValue: Swift.String {
-    get
-  }
-  public typealias Datatype = Swift.String
-  public typealias ValueType = Swift.String
-}
-extension PowerFactor.Blob : PowerFactor.Binding, PowerFactor.Value {
-  public static let declaredDatatype: Swift.String
-  public static func fromDatatypeValue(_ datatypeValue: PowerFactor.Blob) -> PowerFactor.Blob
-  public var datatypeValue: PowerFactor.Blob {
-    get
-  }
-  public typealias Datatype = PowerFactor.Blob
-  public typealias ValueType = PowerFactor.Blob
-}
-extension Swift.Bool : PowerFactor.Binding, PowerFactor.Value {
-  public static var declaredDatatype: Swift.String
-  public static func fromDatatypeValue(_ datatypeValue: Swift.Int64) -> Swift.Bool
-  public var datatypeValue: Swift.Int64 {
-    get
-  }
-  public typealias Datatype = Swift.Int64
-  public typealias ValueType = Swift.Bool
-}
-extension Swift.Int : PowerFactor.Number, PowerFactor.Value {
-  public static var declaredDatatype: Swift.String
-  public static func fromDatatypeValue(_ datatypeValue: Swift.Int64) -> Swift.Int
-  public var datatypeValue: Swift.Int64 {
-    get
-  }
-  public typealias Datatype = Swift.Int64
-  public typealias ValueType = Swift.Int
-}
 @objc @_inheritsConvenienceInitializers @objcMembers open class PWFLoginResponse : ObjectiveC.NSObject {
   @objc open var LoginOtp: Swift.String?
   @objc open var ActivationToken: Swift.String?
@@ -695,68 +469,13 @@ extension PowerFactor.MD5 : PowerFactor.Updatable {
   final public func update(withBytes bytes: Swift.ArraySlice<Swift.UInt8>, isLast: Swift.Bool = false) throws -> Swift.Array<Swift.UInt8>
 }
 public enum PWFClientLogTypes : Swift.Int16 {
-  case error, unhandled, info, trace
+  case error, unhandled, info, trace, secure
   public init?(rawValue: Swift.Int16)
   public typealias RawValue = Swift.Int16
   public var rawValue: Swift.Int16 {
     get
   }
 }
-extension PowerFactor.ExpressionType where Self.UnderlyingType : PowerFactor.Value {
-  public var distinct: PowerFactor.Expression<Self.UnderlyingType> {
-    get
-  }
-  public var count: PowerFactor.Expression<Swift.Int> {
-    get
-  }
-}
-extension PowerFactor.ExpressionType where Self.UnderlyingType : PowerFactor._OptionalType, Self.UnderlyingType.WrappedType : PowerFactor.Value {
-  public var distinct: PowerFactor.Expression<Self.UnderlyingType> {
-    get
-  }
-  public var count: PowerFactor.Expression<Swift.Int> {
-    get
-  }
-}
-extension PowerFactor.ExpressionType where Self.UnderlyingType : PowerFactor.Value, Self.UnderlyingType.Datatype : Swift.Comparable {
-  public var max: PowerFactor.Expression<Self.UnderlyingType?> {
-    get
-  }
-  public var min: PowerFactor.Expression<Self.UnderlyingType?> {
-    get
-  }
-}
-extension PowerFactor.ExpressionType where Self.UnderlyingType : PowerFactor._OptionalType, Self.UnderlyingType.WrappedType : PowerFactor.Value, Self.UnderlyingType.WrappedType.Datatype : Swift.Comparable {
-  public var max: PowerFactor.Expression<Self.UnderlyingType> {
-    get
-  }
-  public var min: PowerFactor.Expression<Self.UnderlyingType> {
-    get
-  }
-}
-extension PowerFactor.ExpressionType where Self.UnderlyingType : PowerFactor.Value, Self.UnderlyingType.Datatype : PowerFactor.Number {
-  public var average: PowerFactor.Expression<Swift.Double?> {
-    get
-  }
-  public var sum: PowerFactor.Expression<Self.UnderlyingType?> {
-    get
-  }
-  public var total: PowerFactor.Expression<Swift.Double> {
-    get
-  }
-}
-extension PowerFactor.ExpressionType where Self.UnderlyingType : PowerFactor._OptionalType, Self.UnderlyingType.WrappedType : PowerFactor.Value, Self.UnderlyingType.WrappedType.Datatype : PowerFactor.Number {
-  public var average: PowerFactor.Expression<Swift.Double?> {
-    get
-  }
-  public var sum: PowerFactor.Expression<Self.UnderlyingType> {
-    get
-  }
-  public var total: PowerFactor.Expression<Swift.Double> {
-    get
-  }
-}
-public func count(_ star: (PowerFactor.Expression<any PowerFactor.Binding>?, PowerFactor.Expression<any PowerFactor.Binding>?) -> PowerFactor.Expression<Swift.Void>) -> PowerFactor.Expression<Swift.Int>
 public enum PKCS7 {
 }
 final public class Checksum {
@@ -1178,220 +897,6 @@ extension PowerFactor.Key {
   public init(pemNamed pemName: Swift.String, in bundle: Foundation.Bundle = Bundle.main) throws
   public init(derNamed derName: Swift.String, in bundle: Foundation.Bundle = Bundle.main) throws
 }
-public protocol QueryType : PowerFactor.Expressible {
-  var clauses: PowerFactor.QueryClauses { get set }
-  init(_ name: Swift.String, database: Swift.String?)
-}
-public protocol SchemaType : PowerFactor.QueryType {
-  static var identifier: Swift.String { get }
-}
-extension PowerFactor.SchemaType {
-  public func select(_ column1: any PowerFactor.Expressible, _ more: any PowerFactor.Expressible...) -> Self
-  public func select(distinct column1: any PowerFactor.Expressible, _ more: any PowerFactor.Expressible...) -> Self
-  public func select(_ all: [any PowerFactor.Expressible]) -> Self
-  public func select(distinct columns: [any PowerFactor.Expressible]) -> Self
-  public func select(_ star: (PowerFactor.Expression<any PowerFactor.Binding>?, PowerFactor.Expression<any PowerFactor.Binding>?) -> PowerFactor.Expression<Swift.Void>) -> Self
-  public func select(distinct star: (PowerFactor.Expression<any PowerFactor.Binding>?, PowerFactor.Expression<any PowerFactor.Binding>?) -> PowerFactor.Expression<Swift.Void>) -> Self
-  public func select<V>(_ column: PowerFactor.Expression<V>) -> PowerFactor.ScalarQuery<V> where V : PowerFactor.Value
-  public func select<V>(_ column: PowerFactor.Expression<V?>) -> PowerFactor.ScalarQuery<V?> where V : PowerFactor.Value
-  public func select<V>(distinct column: PowerFactor.Expression<V>) -> PowerFactor.ScalarQuery<V> where V : PowerFactor.Value
-  public func select<V>(distinct column: PowerFactor.Expression<V?>) -> PowerFactor.ScalarQuery<V?> where V : PowerFactor.Value
-  public var count: PowerFactor.ScalarQuery<Swift.Int> {
-    get
-  }
-}
-extension PowerFactor.QueryType {
-  public func join(_ table: any PowerFactor.QueryType, on condition: PowerFactor.Expression<Swift.Bool>) -> Self
-  public func join(_ table: any PowerFactor.QueryType, on condition: PowerFactor.Expression<Swift.Bool?>) -> Self
-  public func join(_ type: PowerFactor.JoinType, _ table: any PowerFactor.QueryType, on condition: PowerFactor.Expression<Swift.Bool>) -> Self
-  public func join(_ type: PowerFactor.JoinType, _ table: any PowerFactor.QueryType, on condition: PowerFactor.Expression<Swift.Bool?>) -> Self
-  public func filter(_ predicate: PowerFactor.Expression<Swift.Bool>) -> Self
-  public func filter(_ predicate: PowerFactor.Expression<Swift.Bool?>) -> Self
-  public func group(_ by: any PowerFactor.Expressible...) -> Self
-  public func group(_ by: [any PowerFactor.Expressible]) -> Self
-  public func group(_ by: any PowerFactor.Expressible, having: PowerFactor.Expression<Swift.Bool>) -> Self
-  public func group(_ by: any PowerFactor.Expressible, having: PowerFactor.Expression<Swift.Bool?>) -> Self
-  public func group(_ by: [any PowerFactor.Expressible], having: PowerFactor.Expression<Swift.Bool>) -> Self
-  public func group(_ by: [any PowerFactor.Expressible], having: PowerFactor.Expression<Swift.Bool?>) -> Self
-  public func order(_ by: any PowerFactor.Expressible...) -> Self
-  public func order(_ by: [any PowerFactor.Expressible]) -> Self
-  public func limit(_ length: Swift.Int?) -> Self
-  public func limit(_ length: Swift.Int, offset: Swift.Int) -> Self
-  public func alias(_ aliasName: Swift.String) -> Self
-  public func insert(_ value: PowerFactor.Setter, _ more: PowerFactor.Setter...) -> PowerFactor.Insert
-  public func insert(_ values: [PowerFactor.Setter]) -> PowerFactor.Insert
-  public func insert(or onConflict: PowerFactor.OnConflict, _ values: PowerFactor.Setter...) -> PowerFactor.Insert
-  public func insert(or onConflict: PowerFactor.OnConflict, _ values: [PowerFactor.Setter]) -> PowerFactor.Insert
-  public func insert() -> PowerFactor.Insert
-  public func insert(_ query: any PowerFactor.QueryType) -> PowerFactor.Update
-  public func update(_ values: PowerFactor.Setter...) -> PowerFactor.Update
-  public func update(_ values: [PowerFactor.Setter]) -> PowerFactor.Update
-  public func delete() -> PowerFactor.Delete
-  public var exists: PowerFactor.Select<Swift.Bool> {
-    get
-  }
-  public func namespace<V>(_ column: PowerFactor.Expression<V>) -> PowerFactor.Expression<V>
-  public subscript(column: PowerFactor.Expression<PowerFactor.Blob>) -> PowerFactor.Expression<PowerFactor.Blob> {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<PowerFactor.Blob?>) -> PowerFactor.Expression<PowerFactor.Blob?> {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Swift.Bool>) -> PowerFactor.Expression<Swift.Bool> {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Swift.Bool?>) -> PowerFactor.Expression<Swift.Bool?> {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Swift.Double>) -> PowerFactor.Expression<Swift.Double> {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Swift.Double?>) -> PowerFactor.Expression<Swift.Double?> {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Swift.Int>) -> PowerFactor.Expression<Swift.Int> {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Swift.Int?>) -> PowerFactor.Expression<Swift.Int?> {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Swift.Int64>) -> PowerFactor.Expression<Swift.Int64> {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Swift.Int64?>) -> PowerFactor.Expression<Swift.Int64?> {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Swift.String>) -> PowerFactor.Expression<Swift.String> {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Swift.String?>) -> PowerFactor.Expression<Swift.String?> {
-    get
-  }
-  public subscript(star: (PowerFactor.Expression<any PowerFactor.Binding>?, PowerFactor.Expression<any PowerFactor.Binding>?) -> PowerFactor.Expression<Swift.Void>) -> PowerFactor.Expression<Swift.Void> {
-    get
-  }
-  public var expression: PowerFactor.Expression<Swift.Void> {
-    get
-  }
-}
-public struct Table : PowerFactor.SchemaType {
-  public static let identifier: Swift.String
-  public var clauses: PowerFactor.QueryClauses
-  public init(_ name: Swift.String, database: Swift.String? = nil)
-}
-public struct View : PowerFactor.SchemaType {
-  public static let identifier: Swift.String
-  public var clauses: PowerFactor.QueryClauses
-  public init(_ name: Swift.String, database: Swift.String? = nil)
-}
-public struct VirtualTable : PowerFactor.SchemaType {
-  public static let identifier: Swift.String
-  public var clauses: PowerFactor.QueryClauses
-  public init(_ name: Swift.String, database: Swift.String? = nil)
-}
-public struct ScalarQuery<V> : PowerFactor.QueryType {
-  public var clauses: PowerFactor.QueryClauses
-  public init(_ name: Swift.String, database: Swift.String? = nil)
-}
-public struct Select<T> : PowerFactor.ExpressionType {
-  public var template: Swift.String
-  public var bindings: [(any PowerFactor.Binding)?]
-  public init(_ template: Swift.String, _ bindings: [(any PowerFactor.Binding)?])
-  public typealias UnderlyingType = Swift.Void
-}
-public struct Insert : PowerFactor.ExpressionType {
-  public var template: Swift.String
-  public var bindings: [(any PowerFactor.Binding)?]
-  public init(_ template: Swift.String, _ bindings: [(any PowerFactor.Binding)?])
-  public typealias UnderlyingType = Swift.Void
-}
-public struct Update : PowerFactor.ExpressionType {
-  public var template: Swift.String
-  public var bindings: [(any PowerFactor.Binding)?]
-  public init(_ template: Swift.String, _ bindings: [(any PowerFactor.Binding)?])
-  public typealias UnderlyingType = Swift.Void
-}
-public struct Delete : PowerFactor.ExpressionType {
-  public var template: Swift.String
-  public var bindings: [(any PowerFactor.Binding)?]
-  public init(_ template: Swift.String, _ bindings: [(any PowerFactor.Binding)?])
-  public typealias UnderlyingType = Swift.Void
-}
-extension PowerFactor.Connection {
-  final public func prepare(_ query: any PowerFactor.QueryType) throws -> Swift.AnySequence<PowerFactor.Row>
-  final public func scalar<V>(_ query: PowerFactor.ScalarQuery<V>) throws -> V where V : PowerFactor.Value
-  final public func scalar<V>(_ query: PowerFactor.ScalarQuery<V?>) throws -> V.ValueType? where V : PowerFactor.Value
-  final public func scalar<V>(_ query: PowerFactor.Select<V>) throws -> V where V : PowerFactor.Value
-  final public func scalar<V>(_ query: PowerFactor.Select<V?>) throws -> V.ValueType? where V : PowerFactor.Value
-  final public func pluck(_ query: any PowerFactor.QueryType) throws -> PowerFactor.Row?
-  final public func run(_ query: PowerFactor.Insert) throws -> Swift.Int64
-  final public func run(_ query: PowerFactor.Update) throws -> Swift.Int
-  final public func run(_ query: PowerFactor.Delete) throws -> Swift.Int
-}
-public struct Row {
-  public func get<V>(_ column: PowerFactor.Expression<V>) -> V where V : PowerFactor.Value
-  public func get<V>(_ column: PowerFactor.Expression<V?>) -> V? where V : PowerFactor.Value
-  public subscript(column: PowerFactor.Expression<PowerFactor.Blob>) -> PowerFactor.Blob {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<PowerFactor.Blob?>) -> PowerFactor.Blob? {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Swift.Bool>) -> Swift.Bool {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Swift.Bool?>) -> Swift.Bool? {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Swift.Double>) -> Swift.Double {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Swift.Double?>) -> Swift.Double? {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Swift.Int>) -> Swift.Int {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Swift.Int?>) -> Swift.Int? {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Swift.Int64>) -> Swift.Int64 {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Swift.Int64?>) -> Swift.Int64? {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Swift.String>) -> Swift.String {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Swift.String?>) -> Swift.String? {
-    get
-  }
-}
-public enum JoinType : Swift.String {
-  case Cross
-  case Inner
-  case LeftOuter
-  public init?(rawValue: Swift.String)
-  public typealias RawValue = Swift.String
-  public var rawValue: Swift.String {
-    get
-  }
-}
-public enum OnConflict : Swift.String {
-  case Replace
-  case Rollback
-  case Abort
-  case Fail
-  case Ignore
-  public init?(rawValue: Swift.String)
-  public typealias RawValue = Swift.String
-  public var rawValue: Swift.String {
-    get
-  }
-}
-public struct QueryClauses {
-}
 final public class SHA3 {
   final public let blockSize: Swift.Int
   final public let digestLength: Swift.Int
@@ -1721,57 +1226,6 @@ extension PowerFactor.CS.BigInt {
   public init(_ data: Foundation.Data)
   public func serialize() -> Foundation.Data
 }
-extension Foundation.Data : PowerFactor.Value {
-  public static var declaredDatatype: Swift.String {
-    get
-  }
-  public static func fromDatatypeValue(_ dataValue: PowerFactor.Blob) -> Foundation.Data
-  public var datatypeValue: PowerFactor.Blob {
-    get
-  }
-  public typealias Datatype = PowerFactor.Blob
-  public typealias ValueType = Foundation.Data
-}
-extension Foundation.Date : PowerFactor.Value {
-  public static var declaredDatatype: Swift.String {
-    get
-  }
-  public static func fromDatatypeValue(_ stringValue: Swift.String) -> Foundation.Date
-  public var datatypeValue: Swift.String {
-    get
-  }
-  public typealias Datatype = Swift.String
-  public typealias ValueType = Foundation.Date
-}
-public var dateFormatter: Foundation.DateFormatter
-extension PowerFactor.QueryType {
-  public subscript(column: PowerFactor.Expression<Foundation.Data>) -> PowerFactor.Expression<Foundation.Data> {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Foundation.Data?>) -> PowerFactor.Expression<Foundation.Data?> {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Foundation.Date>) -> PowerFactor.Expression<Foundation.Date> {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Foundation.Date?>) -> PowerFactor.Expression<Foundation.Date?> {
-    get
-  }
-}
-extension PowerFactor.Row {
-  public subscript(column: PowerFactor.Expression<Foundation.Data>) -> Foundation.Data {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Foundation.Data?>) -> Foundation.Data? {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Foundation.Date>) -> Foundation.Date {
-    get
-  }
-  public subscript(column: PowerFactor.Expression<Foundation.Date?>) -> Foundation.Date? {
-    get
-  }
-}
 extension PowerFactor.CS.BigUInt {
   public mutating func multiply(byWord y: PowerFactor.CS.BigUInt.Word)
   public func multiplied(byWord y: PowerFactor.CS.BigUInt.Word) -> PowerFactor.CS.BigUInt
@@ -1964,72 +1418,6 @@ extension PowerFactor.ChaCha20 {
   public static func encrypt(_ plainText: Swift.Array<Swift.UInt8>, key: Swift.Array<Swift.UInt8>, iv: Swift.Array<Swift.UInt8>, authenticationHeader: Swift.Array<Swift.UInt8>) throws -> (cipherText: Swift.Array<Swift.UInt8>, authenticationTag: Swift.Array<Swift.UInt8>)
   public static func decrypt(_ cipherText: Swift.Array<Swift.UInt8>, key: Swift.Array<Swift.UInt8>, iv: Swift.Array<Swift.UInt8>, authenticationHeader: Swift.Array<Swift.UInt8>, authenticationTag: Swift.Array<Swift.UInt8>) throws -> (plainText: Swift.Array<Swift.UInt8>, success: Swift.Bool)
   @objc deinit
-}
-@_hasMissingDesignatedInitializers final public class Statement {
-  @objc deinit
-  final public var columnCount: Swift.Int {
-    get
-    set
-  }
-  final public var columnNames: [Swift.String] {
-    get
-    set
-  }
-  final public var row: PowerFactor.Cursor {
-    get
-    set
-  }
-  final public func bind(_ values: (any PowerFactor.Binding)?...) -> PowerFactor.Statement
-  final public func bind(_ values: [(any PowerFactor.Binding)?]) -> PowerFactor.Statement
-  final public func bind(_ values: [Swift.String : (any PowerFactor.Binding)?]) -> PowerFactor.Statement
-  final public func run(_ bindings: (any PowerFactor.Binding)?...) throws -> PowerFactor.Statement
-  final public func run(_ bindings: [(any PowerFactor.Binding)?]) throws -> PowerFactor.Statement
-  final public func run(_ bindings: [Swift.String : (any PowerFactor.Binding)?]) throws -> PowerFactor.Statement
-  final public func scalar(_ bindings: (any PowerFactor.Binding)?...) throws -> (any PowerFactor.Binding)?
-  final public func scalar(_ bindings: [(any PowerFactor.Binding)?]) throws -> (any PowerFactor.Binding)?
-  final public func scalar(_ bindings: [Swift.String : (any PowerFactor.Binding)?]) throws -> (any PowerFactor.Binding)?
-  final public func step() throws -> Swift.Bool
-}
-extension PowerFactor.Statement : Swift.Sequence {
-  final public func makeIterator() -> PowerFactor.Statement
-  public typealias Iterator = PowerFactor.Statement
-}
-extension PowerFactor.Statement : Swift.IteratorProtocol {
-  final public func next() -> [(any PowerFactor.Binding)?]?
-  public typealias Element = [(any PowerFactor.Binding)?]
-}
-extension PowerFactor.Statement : Swift.CustomStringConvertible {
-  final public var description: Swift.String {
-    get
-  }
-}
-public struct Cursor {
-  public subscript(idx: Swift.Int) -> Swift.Double {
-    get
-  }
-  public subscript(idx: Swift.Int) -> Swift.Int64 {
-    get
-  }
-  public subscript(idx: Swift.Int) -> Swift.String {
-    get
-  }
-  public subscript(idx: Swift.Int) -> PowerFactor.Blob {
-    get
-  }
-  public subscript(idx: Swift.Int) -> Swift.Bool {
-    get
-  }
-  public subscript(idx: Swift.Int) -> Swift.Int {
-    get
-  }
-}
-extension PowerFactor.Cursor : Swift.Sequence {
-  public subscript(idx: Swift.Int) -> (any PowerFactor.Binding)? {
-    get
-  }
-  public func makeIterator() -> Swift.AnyIterator<(any PowerFactor.Binding)?>
-  public typealias Element = (any PowerFactor.Binding)?
-  public typealias Iterator = Swift.AnyIterator<(any PowerFactor.Binding)?>
 }
 @objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers open class PWFClientResult : PowerFactor.PWFBaseObject, @unchecked Swift.Sendable, Swift.Error {
   @objc open var ErrorCode: Swift.String?
@@ -2250,187 +1638,6 @@ extension PowerFactor.CS.BigInt {
   open func getOwnerKey() -> PowerFactor.TransactionOwnerContract
   @objc deinit
 }
-public func + (lhs: PowerFactor.Expression<Swift.String>, rhs: PowerFactor.Expression<Swift.String>) -> PowerFactor.Expression<Swift.String>
-public func + (lhs: PowerFactor.Expression<Swift.String>, rhs: PowerFactor.Expression<Swift.String?>) -> PowerFactor.Expression<Swift.String?>
-public func + (lhs: PowerFactor.Expression<Swift.String?>, rhs: PowerFactor.Expression<Swift.String>) -> PowerFactor.Expression<Swift.String?>
-public func + (lhs: PowerFactor.Expression<Swift.String?>, rhs: PowerFactor.Expression<Swift.String?>) -> PowerFactor.Expression<Swift.String?>
-public func + (lhs: PowerFactor.Expression<Swift.String>, rhs: Swift.String) -> PowerFactor.Expression<Swift.String>
-public func + (lhs: PowerFactor.Expression<Swift.String?>, rhs: Swift.String) -> PowerFactor.Expression<Swift.String?>
-public func + (lhs: Swift.String, rhs: PowerFactor.Expression<Swift.String>) -> PowerFactor.Expression<Swift.String>
-public func + (lhs: Swift.String, rhs: PowerFactor.Expression<Swift.String?>) -> PowerFactor.Expression<Swift.String?>
-public func + <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func + <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func + <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func + <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func + <V>(lhs: PowerFactor.Expression<V>, rhs: V) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func + <V>(lhs: PowerFactor.Expression<V?>, rhs: V) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func + <V>(lhs: V, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func + <V>(lhs: V, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func - <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func - <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func - <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func - <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func - <V>(lhs: PowerFactor.Expression<V>, rhs: V) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func - <V>(lhs: PowerFactor.Expression<V?>, rhs: V) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func - <V>(lhs: V, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func - <V>(lhs: V, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func * <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func * <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func * <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func * <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func * <V>(lhs: PowerFactor.Expression<V>, rhs: V) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func * <V>(lhs: PowerFactor.Expression<V?>, rhs: V) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func * <V>(lhs: V, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func * <V>(lhs: V, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func / <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func / <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func / <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func / <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func / <V>(lhs: PowerFactor.Expression<V>, rhs: V) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func / <V>(lhs: PowerFactor.Expression<V?>, rhs: V) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func / <V>(lhs: V, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func / <V>(lhs: V, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-prefix public func - <V>(rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-prefix public func - <V>(rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func % <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func % <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func % <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func % <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func % <V>(lhs: PowerFactor.Expression<V>, rhs: V) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func % <V>(lhs: PowerFactor.Expression<V?>, rhs: V) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func % <V>(lhs: V, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func % <V>(lhs: V, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func << <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func << <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func << <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func << <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func << <V>(lhs: PowerFactor.Expression<V>, rhs: V) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func << <V>(lhs: PowerFactor.Expression<V?>, rhs: V) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func << <V>(lhs: V, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func << <V>(lhs: V, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func >> <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func >> <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func >> <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func >> <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func >> <V>(lhs: PowerFactor.Expression<V>, rhs: V) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func >> <V>(lhs: PowerFactor.Expression<V?>, rhs: V) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func >> <V>(lhs: V, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func >> <V>(lhs: V, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func & <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func & <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func & <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func & <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func & <V>(lhs: PowerFactor.Expression<V>, rhs: V) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func & <V>(lhs: PowerFactor.Expression<V?>, rhs: V) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func & <V>(lhs: V, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func & <V>(lhs: V, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func | <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func | <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func | <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func | <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func | <V>(lhs: PowerFactor.Expression<V>, rhs: V) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func | <V>(lhs: PowerFactor.Expression<V?>, rhs: V) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func | <V>(lhs: V, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func | <V>(lhs: V, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func ^ <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func ^ <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func ^ <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func ^ <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func ^ <V>(lhs: PowerFactor.Expression<V>, rhs: V) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func ^ <V>(lhs: PowerFactor.Expression<V?>, rhs: V) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func ^ <V>(lhs: V, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func ^ <V>(lhs: V, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-prefix public func ~ <V>(rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-prefix public func ~ <V>(rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V?> where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func == <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<Swift.Bool> where V : PowerFactor.Value, V.Datatype : Swift.Equatable
-public func == <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Equatable
-public func == <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Equatable
-public func == <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Equatable
-public func == <V>(lhs: PowerFactor.Expression<V>, rhs: V) -> PowerFactor.Expression<Swift.Bool> where V : PowerFactor.Value, V.Datatype : Swift.Equatable
-public func == <V>(lhs: PowerFactor.Expression<V?>, rhs: V?) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Equatable
-public func == <V>(lhs: V, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<Swift.Bool> where V : PowerFactor.Value, V.Datatype : Swift.Equatable
-public func == <V>(lhs: V?, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Equatable
-public func != <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<Swift.Bool> where V : PowerFactor.Value, V.Datatype : Swift.Equatable
-public func != <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Equatable
-public func != <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Equatable
-public func != <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Equatable
-public func != <V>(lhs: PowerFactor.Expression<V>, rhs: V) -> PowerFactor.Expression<Swift.Bool> where V : PowerFactor.Value, V.Datatype : Swift.Equatable
-public func != <V>(lhs: PowerFactor.Expression<V?>, rhs: V?) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Equatable
-public func != <V>(lhs: V, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<Swift.Bool> where V : PowerFactor.Value, V.Datatype : Swift.Equatable
-public func != <V>(lhs: V?, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Equatable
-public func > <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<Swift.Bool> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func > <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func > <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func > <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func > <V>(lhs: PowerFactor.Expression<V>, rhs: V) -> PowerFactor.Expression<Swift.Bool> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func > <V>(lhs: PowerFactor.Expression<V?>, rhs: V) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func > <V>(lhs: V, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<Swift.Bool> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func > <V>(lhs: V, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func >= <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<Swift.Bool> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func >= <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func >= <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func >= <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func >= <V>(lhs: PowerFactor.Expression<V>, rhs: V) -> PowerFactor.Expression<Swift.Bool> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func >= <V>(lhs: PowerFactor.Expression<V?>, rhs: V) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func >= <V>(lhs: V, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<Swift.Bool> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func >= <V>(lhs: V, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func < <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<Swift.Bool> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func < <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func < <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func < <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func < <V>(lhs: PowerFactor.Expression<V>, rhs: V) -> PowerFactor.Expression<Swift.Bool> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func < <V>(lhs: PowerFactor.Expression<V?>, rhs: V) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func < <V>(lhs: V, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<Swift.Bool> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func < <V>(lhs: V, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func <= <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<Swift.Bool> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func <= <V>(lhs: PowerFactor.Expression<V>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func <= <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func <= <V>(lhs: PowerFactor.Expression<V?>, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func <= <V>(lhs: PowerFactor.Expression<V>, rhs: V) -> PowerFactor.Expression<Swift.Bool> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func <= <V>(lhs: PowerFactor.Expression<V?>, rhs: V) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func <= <V>(lhs: V, rhs: PowerFactor.Expression<V>) -> PowerFactor.Expression<Swift.Bool> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func <= <V>(lhs: V, rhs: PowerFactor.Expression<V?>) -> PowerFactor.Expression<Swift.Bool?> where V : PowerFactor.Value, V.Datatype : Swift.Comparable
-public func && (lhs: PowerFactor.Expression<Swift.Bool>, rhs: PowerFactor.Expression<Swift.Bool>) -> PowerFactor.Expression<Swift.Bool>
-public func && (lhs: PowerFactor.Expression<Swift.Bool>, rhs: PowerFactor.Expression<Swift.Bool?>) -> PowerFactor.Expression<Swift.Bool?>
-public func && (lhs: PowerFactor.Expression<Swift.Bool?>, rhs: PowerFactor.Expression<Swift.Bool>) -> PowerFactor.Expression<Swift.Bool?>
-public func && (lhs: PowerFactor.Expression<Swift.Bool?>, rhs: PowerFactor.Expression<Swift.Bool?>) -> PowerFactor.Expression<Swift.Bool?>
-public func && (lhs: PowerFactor.Expression<Swift.Bool>, rhs: Swift.Bool) -> PowerFactor.Expression<Swift.Bool>
-public func && (lhs: PowerFactor.Expression<Swift.Bool?>, rhs: Swift.Bool) -> PowerFactor.Expression<Swift.Bool?>
-public func && (lhs: Swift.Bool, rhs: PowerFactor.Expression<Swift.Bool>) -> PowerFactor.Expression<Swift.Bool>
-public func && (lhs: Swift.Bool, rhs: PowerFactor.Expression<Swift.Bool?>) -> PowerFactor.Expression<Swift.Bool?>
-public func || (lhs: PowerFactor.Expression<Swift.Bool>, rhs: PowerFactor.Expression<Swift.Bool>) -> PowerFactor.Expression<Swift.Bool>
-public func || (lhs: PowerFactor.Expression<Swift.Bool>, rhs: PowerFactor.Expression<Swift.Bool?>) -> PowerFactor.Expression<Swift.Bool?>
-public func || (lhs: PowerFactor.Expression<Swift.Bool?>, rhs: PowerFactor.Expression<Swift.Bool>) -> PowerFactor.Expression<Swift.Bool?>
-public func || (lhs: PowerFactor.Expression<Swift.Bool?>, rhs: PowerFactor.Expression<Swift.Bool?>) -> PowerFactor.Expression<Swift.Bool?>
-public func || (lhs: PowerFactor.Expression<Swift.Bool>, rhs: Swift.Bool) -> PowerFactor.Expression<Swift.Bool>
-public func || (lhs: PowerFactor.Expression<Swift.Bool?>, rhs: Swift.Bool) -> PowerFactor.Expression<Swift.Bool?>
-public func || (lhs: Swift.Bool, rhs: PowerFactor.Expression<Swift.Bool>) -> PowerFactor.Expression<Swift.Bool>
-public func || (lhs: Swift.Bool, rhs: PowerFactor.Expression<Swift.Bool?>) -> PowerFactor.Expression<Swift.Bool?>
-prefix public func ! (rhs: PowerFactor.Expression<Swift.Bool>) -> PowerFactor.Expression<Swift.Bool>
-prefix public func ! (rhs: PowerFactor.Expression<Swift.Bool?>) -> PowerFactor.Expression<Swift.Bool?>
-extension PowerFactor.Module {
-  public static func FTS5(_ config: PowerFactor.FTS5Config) -> PowerFactor.Module
-}
-@_inheritsConvenienceInitializers open class FTS5Config : PowerFactor.FTSConfig {
-  public enum Detail : Swift.CustomStringConvertible {
-    case full
-    case column
-    case none
-    public var description: Swift.String {
-      get
-    }
-    public static func == (a: PowerFactor.FTS5Config.Detail, b: PowerFactor.FTS5Config.Detail) -> Swift.Bool
-    public func hash(into hasher: inout Swift.Hasher)
-    public var hashValue: Swift.Int {
-      get
-    }
-  }
-  public init()
-  open func contentRowId(_ column: any PowerFactor.Expressible) -> Self
-  open func columnSize(_ size: Swift.Int) -> Self
-  open func detail(_ detail: PowerFactor.FTS5Config.Detail) -> Self
-  @objc deinit
-}
 extension PowerFactor.CS.BigUInt {
   public func quotientAndRemainder(dividingBy y: PowerFactor.CS.BigUInt) -> (quotient: PowerFactor.CS.BigUInt, remainder: PowerFactor.CS.BigUInt)
   public static func / (x: PowerFactor.CS.BigUInt, y: PowerFactor.CS.BigUInt) -> PowerFactor.CS.BigUInt
@@ -2507,83 +1714,6 @@ extension PowerFactor.CS.BigInt {
 extension PowerFactor.Blowfish {
   convenience public init(key: Swift.String, iv: Swift.String, padding: PowerFactor.Padding = .pkcs7) throws
 }
-precedencegroup ColumnAssignment {
-  associativity: left
-  assignment: true
-  lowerThan: AssignmentPrecedence
-}
-infix operator <- : ColumnAssignment
-public struct Setter {
-}
-extension PowerFactor.Setter : PowerFactor.Expressible {
-  public var expression: PowerFactor.Expression<Swift.Void> {
-    get
-  }
-}
-public func <- <V>(column: PowerFactor.Expression<V>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value
-public func <- <V>(column: PowerFactor.Expression<V>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value
-public func <- <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value
-public func <- <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V?>) -> PowerFactor.Setter where V : PowerFactor.Value
-public func <- <V>(column: PowerFactor.Expression<V?>, value: V?) -> PowerFactor.Setter where V : PowerFactor.Value
-public func += (column: PowerFactor.Expression<Swift.String>, value: PowerFactor.Expression<Swift.String>) -> PowerFactor.Setter
-public func += (column: PowerFactor.Expression<Swift.String>, value: Swift.String) -> PowerFactor.Setter
-public func += (column: PowerFactor.Expression<Swift.String?>, value: PowerFactor.Expression<Swift.String>) -> PowerFactor.Setter
-public func += (column: PowerFactor.Expression<Swift.String?>, value: PowerFactor.Expression<Swift.String?>) -> PowerFactor.Setter
-public func += (column: PowerFactor.Expression<Swift.String?>, value: Swift.String) -> PowerFactor.Setter
-public func += <V>(column: PowerFactor.Expression<V>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func += <V>(column: PowerFactor.Expression<V>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func += <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func += <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V?>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func += <V>(column: PowerFactor.Expression<V?>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func -= <V>(column: PowerFactor.Expression<V>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func -= <V>(column: PowerFactor.Expression<V>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func -= <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func -= <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V?>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func -= <V>(column: PowerFactor.Expression<V?>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func *= <V>(column: PowerFactor.Expression<V>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func *= <V>(column: PowerFactor.Expression<V>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func *= <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func *= <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V?>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func *= <V>(column: PowerFactor.Expression<V?>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func /= <V>(column: PowerFactor.Expression<V>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func /= <V>(column: PowerFactor.Expression<V>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func /= <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func /= <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V?>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func /= <V>(column: PowerFactor.Expression<V?>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype : PowerFactor.Number
-public func %= <V>(column: PowerFactor.Expression<V>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func %= <V>(column: PowerFactor.Expression<V>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func %= <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func %= <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V?>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func %= <V>(column: PowerFactor.Expression<V?>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func <<= <V>(column: PowerFactor.Expression<V>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func <<= <V>(column: PowerFactor.Expression<V>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func <<= <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func <<= <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V?>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func <<= <V>(column: PowerFactor.Expression<V?>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func >>= <V>(column: PowerFactor.Expression<V>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func >>= <V>(column: PowerFactor.Expression<V>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func >>= <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func >>= <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V?>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func >>= <V>(column: PowerFactor.Expression<V?>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func &= <V>(column: PowerFactor.Expression<V>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func &= <V>(column: PowerFactor.Expression<V>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func &= <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func &= <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V?>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func &= <V>(column: PowerFactor.Expression<V?>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func |= <V>(column: PowerFactor.Expression<V>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func |= <V>(column: PowerFactor.Expression<V>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func |= <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func |= <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V?>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func |= <V>(column: PowerFactor.Expression<V?>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func ^= <V>(column: PowerFactor.Expression<V>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func ^= <V>(column: PowerFactor.Expression<V>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func ^= <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func ^= <V>(column: PowerFactor.Expression<V?>, value: PowerFactor.Expression<V?>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-public func ^= <V>(column: PowerFactor.Expression<V?>, value: V) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-postfix public func ++ <V>(column: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-postfix public func ++ <V>(column: PowerFactor.Expression<V?>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-postfix public func -- <V>(column: PowerFactor.Expression<V>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
-postfix public func -- <V>(column: PowerFactor.Expression<V?>) -> PowerFactor.Setter where V : PowerFactor.Value, V.Datatype == Swift.Int64
 public class PWFTransactionOptions {
   public init(isDarkMode: Swift.Bool = false, isEnableManualScreenOffMode: Swift.Bool = false, securityCheckDataList: [PowerFactor.CheckData] = [])
   @objc deinit
@@ -2807,7 +1937,7 @@ internal func strideCount(from: Swift.Int, to: Swift.Int, by: Swift.Int) -> Swif
   @available(iOS 10.0, *)
   public static func getOneTouchTransaction(config: PowerFactor.PWFConfig, transactionToken: Swift.String, customerId: Swift.Int64, _ onTransactionBegin: @escaping (_ data: PowerFactor.PWFTransactionContract) -> Swift.Void, onTransactionFailure: @escaping ([PowerFactor.PWFClientResult]) -> Swift.Void = { (error: [PWFClientResult]) in })
   @available(iOS 10.0, *)
-  public static func getOneTouchTransactionWithScreen(vc: UIKit.UIViewController, config: PowerFactor.PWFConfig, transactionToken: Swift.String, customerId: Swift.Int64, options: PowerFactor.PWFTransactionOptions? = nil, onTransactionBegin: @escaping (_ data: PowerFactor.PWFTransactionContract) -> Swift.Void, onClickButton: @escaping (_ name: PowerFactor.TransactionStatusNames) -> Swift.Void, onTransactionCompleted: @escaping () -> Swift.Void, onTransactionFailure: @escaping ([PowerFactor.PWFClientResult]) -> Swift.Void = { (error: [PWFClientResult]) in })
+  public static func getOneTouchTransactionWithScreen(vc: UIKit.UIViewController, config: PowerFactor.PWFConfig, transactionToken: Swift.String, customerId: Swift.Int64, options: PowerFactor.PWFTransactionOptions? = nil, onTransactionBegin: @escaping (_ data: PowerFactor.PWFTransactionContract) -> Swift.Void, onClickButton: @escaping (_ name: PowerFactor.TransactionStatusNames) -> Swift.Void, _ onClickActionBarButton: @escaping (_ iconName: Swift.String) -> Swift.Void, onTransactionCompleted: @escaping () -> Swift.Void, onTransactionFailure: @escaping ([PowerFactor.PWFClientResult]) -> Swift.Void = { (error: [PWFClientResult]) in }, onShowPINScreen: @escaping (UIKit.UIViewController, _ confirmPIN: @escaping (Swift.String) -> Swift.Void, _ cancelConfirm: @escaping () -> Swift.Void) -> Swift.Void)
   public static func dismissTransactionScreen(isForce: Swift.Bool = false) -> Swift.Bool
   @available(iOS 10.0, *)
   public static func beginTransactionWithScreen(vc: UIKit.UIViewController, options: PowerFactor.PWFTransactionOptions? = nil, _ onTransactionBegin: @escaping (_ data: PowerFactor.PWFTransactionContract) -> Swift.Void, _ onClickButton: @escaping (_ name: PowerFactor.TransactionStatusNames) -> Swift.Void, _ onClickActionBarButton: @escaping (_ iconName: Swift.String) -> Swift.Void, onTransactionCompleted: @escaping () -> Swift.Void, onTransactionFailure: @escaping ([PowerFactor.PWFClientResult]) -> Swift.Void = { (error: [PWFClientResult]) in }) -> Swift.String
@@ -2842,8 +1972,6 @@ internal func strideCount(from: Swift.Int, to: Swift.Int, by: Swift.Int) -> Swif
   @available(iOS 10.0, *)
   public static func completePushTransaction(config: PowerFactor.PWFConfig, token: Swift.String, customerId: Swift.Int64, onSuccess: @escaping () -> Swift.Void, onError: @escaping ([PowerFactor.PWFClientResult]) -> Swift.Void)
   @available(iOS 10.0, *)
-  public static func completePushTransactions(config: PowerFactor.PWFConfig, pin: Swift.String, token: Swift.String, customerId: Swift.Int64, onSuccess: @escaping () -> Swift.Void, onError: @escaping ([PowerFactor.PWFClientResult]) -> Swift.Void)
-  @available(iOS 10.0, *)
   public static func completePushTransaction(config: PowerFactor.PWFConfig, pin: Swift.String, token: Swift.String, customerId: Swift.Int64, onSuccess: @escaping () -> Swift.Void, onError: @escaping ([PowerFactor.PWFClientResult]) -> Swift.Void)
   @available(iOS 10.0, *)
   public static func completePushTransaction(config: PowerFactor.PWFConfig, localizedReason: Swift.String, token: Swift.String, customerId: Swift.Int64, onSuccess: @escaping () -> Swift.Void, onAuthenticationSuccess: @escaping () -> Swift.Void, onError: @escaping ([PowerFactor.PWFClientResult]) -> Swift.Void)
@@ -2861,7 +1989,7 @@ internal func strideCount(from: Swift.Int, to: Swift.Int, by: Swift.Int) -> Swif
   public static func getOwnerKey() -> Swift.String?
   public func StartCheckScreenMirroring()
   public static func getSDKVersion() -> Swift.String
-  public static func TransactionScreenTest(vc: UIKit.UIViewController, transactionContent: Swift.String?, options: PowerFactor.PWFTransactionOptions? = nil)
+  public static func TransactionScreenTest(vc: UIKit.UIViewController, transactionContent: Swift.String?, options: PowerFactor.PWFTransactionOptions? = nil, transactionApprovementTypeList: [Swift.Int]? = nil, onTransactionBegin: @escaping (_ data: PowerFactor.PWFTransactionContract) -> Swift.Void, onClickButton: @escaping (_ name: PowerFactor.TransactionStatusNames) -> Swift.Void, _ onClickActionBarButton: @escaping (_ iconName: Swift.String) -> Swift.Void, onTransactionCompleted: @escaping () -> Swift.Void, onTransactionFailure: @escaping ([PowerFactor.PWFClientResult]) -> Swift.Void = { (error: [PWFClientResult]) in }, onShowPINScreen: @escaping (UIKit.UIViewController, _ confirmPIN: @escaping (Swift.String) -> Swift.Void, _ cancelConfirm: @escaping () -> Swift.Void) -> Swift.Void)
   @objc override dynamic public init()
   @objc deinit
 }
@@ -3424,14 +2552,6 @@ extension Swift.String {
 extension Dispatch.DispatchQueue {
   public class func once(token: Swift.String, block: () -> Swift.Void)
 }
-public typealias Star = (PowerFactor.Expression<any PowerFactor.Binding>?, PowerFactor.Expression<any PowerFactor.Binding>?) -> PowerFactor.Expression<Swift.Void>
-public func * (_: PowerFactor.Expression<any PowerFactor.Binding>?, _: PowerFactor.Expression<any PowerFactor.Binding>?) -> PowerFactor.Expression<Swift.Void>
-public protocol _OptionalType {
-  associatedtype WrappedType
-}
-extension Swift.Optional : PowerFactor._OptionalType {
-  public typealias WrappedType = Wrapped
-}
 extension PowerFactor.CS.BigInt : Swift.Codable {
   public init(from decoder: any Swift.Decoder) throws
   public func encode(to encoder: any Swift.Encoder) throws
@@ -3449,6 +2569,9 @@ public enum ECCError : Swift.Error {
   case keyRepresentationFailed(error: CoreFoundation.CFError?)
   case ecdhFaield(error: CoreFoundation.CFError?)
   case decryptionFaield
+  case privateKeyNotFound
+  case getBiometricDataFailed
+  case publicKeyNotFound
 }
 open class KeychainWrapper {
   @available(*, deprecated, message: "KeychainWrapper.defaultKeychainWrapper is deprecated 2.2.1, use KeychainWrapper.standard instead")
@@ -3519,109 +2642,6 @@ public enum Bit : Swift.Int {
 extension PowerFactor.Bit {
   @inlinable internal func inverted() -> PowerFactor.Bit {
     self == .zero ? .one : .zero
-  }
-}
-extension PowerFactor.SchemaType {
-  public func drop(ifExists: Swift.Bool = false) -> Swift.String
-}
-extension PowerFactor.Table {
-  public func create(temporary: Swift.Bool = false, ifNotExists: Swift.Bool = false, block: (PowerFactor.TableBuilder) -> Swift.Void) -> Swift.String
-  public func create(_ query: any PowerFactor.QueryType, temporary: Swift.Bool = false, ifNotExists: Swift.Bool = false) -> Swift.String
-  public func addColumn<V>(_ name: PowerFactor.Expression<V>, check: PowerFactor.Expression<Swift.Bool>? = nil, defaultValue: V) -> Swift.String where V : PowerFactor.Value
-  public func addColumn<V>(_ name: PowerFactor.Expression<V>, check: PowerFactor.Expression<Swift.Bool?>, defaultValue: V) -> Swift.String where V : PowerFactor.Value
-  public func addColumn<V>(_ name: PowerFactor.Expression<V?>, check: PowerFactor.Expression<Swift.Bool>? = nil, defaultValue: V? = nil) -> Swift.String where V : PowerFactor.Value
-  public func addColumn<V>(_ name: PowerFactor.Expression<V?>, check: PowerFactor.Expression<Swift.Bool?>, defaultValue: V? = nil) -> Swift.String where V : PowerFactor.Value
-  public func addColumn<V>(_ name: PowerFactor.Expression<V>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool>? = nil, references table: any PowerFactor.QueryType, _ other: PowerFactor.Expression<V>) -> Swift.String where V : PowerFactor.Value, V.Datatype == Swift.Int64
-  public func addColumn<V>(_ name: PowerFactor.Expression<V>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool?>, references table: any PowerFactor.QueryType, _ other: PowerFactor.Expression<V>) -> Swift.String where V : PowerFactor.Value, V.Datatype == Swift.Int64
-  public func addColumn<V>(_ name: PowerFactor.Expression<V?>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool>? = nil, references table: any PowerFactor.QueryType, _ other: PowerFactor.Expression<V>) -> Swift.String where V : PowerFactor.Value, V.Datatype == Swift.Int64
-  public func addColumn<V>(_ name: PowerFactor.Expression<V?>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool?>, references table: any PowerFactor.QueryType, _ other: PowerFactor.Expression<V>) -> Swift.String where V : PowerFactor.Value, V.Datatype == Swift.Int64
-  public func addColumn<V>(_ name: PowerFactor.Expression<V>, check: PowerFactor.Expression<Swift.Bool>? = nil, defaultValue: V, collate: PowerFactor.Collation) -> Swift.String where V : PowerFactor.Value, V.Datatype == Swift.String
-  public func addColumn<V>(_ name: PowerFactor.Expression<V>, check: PowerFactor.Expression<Swift.Bool?>, defaultValue: V, collate: PowerFactor.Collation) -> Swift.String where V : PowerFactor.Value, V.Datatype == Swift.String
-  public func addColumn<V>(_ name: PowerFactor.Expression<V?>, check: PowerFactor.Expression<Swift.Bool>? = nil, defaultValue: V? = nil, collate: PowerFactor.Collation) -> Swift.String where V : PowerFactor.Value, V.Datatype == Swift.String
-  public func addColumn<V>(_ name: PowerFactor.Expression<V?>, check: PowerFactor.Expression<Swift.Bool?>, defaultValue: V? = nil, collate: PowerFactor.Collation) -> Swift.String where V : PowerFactor.Value, V.Datatype == Swift.String
-  public func rename(_ to: PowerFactor.Table) -> Swift.String
-  public func createIndex(_ columns: any PowerFactor.Expressible...) -> Swift.String
-  public func createIndex(_ columns: [any PowerFactor.Expressible], unique: Swift.Bool = false, ifNotExists: Swift.Bool = false) -> Swift.String
-  public func dropIndex(_ columns: any PowerFactor.Expressible...) -> Swift.String
-  public func dropIndex(_ columns: [any PowerFactor.Expressible], ifExists: Swift.Bool = false) -> Swift.String
-}
-extension PowerFactor.View {
-  public func create(_ query: any PowerFactor.QueryType, temporary: Swift.Bool = false, ifNotExists: Swift.Bool = false) -> Swift.String
-  public func drop(ifExists: Swift.Bool = false) -> Swift.String
-}
-extension PowerFactor.VirtualTable {
-  public func create(_ using: PowerFactor.Module, ifNotExists: Swift.Bool = false) -> Swift.String
-  public func rename(_ to: PowerFactor.VirtualTable) -> Swift.String
-}
-@_hasMissingDesignatedInitializers final public class TableBuilder {
-  final public func column<V>(_ name: PowerFactor.Expression<V>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool>? = nil, defaultValue: PowerFactor.Expression<V>? = nil) where V : PowerFactor.Value
-  final public func column<V>(_ name: PowerFactor.Expression<V>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool>? = nil, defaultValue: V) where V : PowerFactor.Value
-  final public func column<V>(_ name: PowerFactor.Expression<V>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool?>, defaultValue: PowerFactor.Expression<V>? = nil) where V : PowerFactor.Value
-  final public func column<V>(_ name: PowerFactor.Expression<V>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool?>, defaultValue: V) where V : PowerFactor.Value
-  final public func column<V>(_ name: PowerFactor.Expression<V?>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool>? = nil, defaultValue: PowerFactor.Expression<V>? = nil) where V : PowerFactor.Value
-  final public func column<V>(_ name: PowerFactor.Expression<V?>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool>? = nil, defaultValue: PowerFactor.Expression<V?>) where V : PowerFactor.Value
-  final public func column<V>(_ name: PowerFactor.Expression<V?>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool>? = nil, defaultValue: V) where V : PowerFactor.Value
-  final public func column<V>(_ name: PowerFactor.Expression<V?>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool?>, defaultValue: PowerFactor.Expression<V>? = nil) where V : PowerFactor.Value
-  final public func column<V>(_ name: PowerFactor.Expression<V?>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool?>, defaultValue: PowerFactor.Expression<V?>) where V : PowerFactor.Value
-  final public func column<V>(_ name: PowerFactor.Expression<V?>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool?>, defaultValue: V) where V : PowerFactor.Value
-  final public func column<V>(_ name: PowerFactor.Expression<V>, primaryKey: Swift.Bool, check: PowerFactor.Expression<Swift.Bool>? = nil, defaultValue: PowerFactor.Expression<V>? = nil) where V : PowerFactor.Value
-  final public func column<V>(_ name: PowerFactor.Expression<V>, primaryKey: Swift.Bool, check: PowerFactor.Expression<Swift.Bool?>, defaultValue: PowerFactor.Expression<V>? = nil) where V : PowerFactor.Value
-  final public func column<V>(_ name: PowerFactor.Expression<V>, primaryKey: PowerFactor.PrimaryKey, check: PowerFactor.Expression<Swift.Bool>? = nil) where V : PowerFactor.Value, V.Datatype == Swift.Int64
-  final public func column<V>(_ name: PowerFactor.Expression<V>, primaryKey: PowerFactor.PrimaryKey, check: PowerFactor.Expression<Swift.Bool?>) where V : PowerFactor.Value, V.Datatype == Swift.Int64
-  final public func column<V>(_ name: PowerFactor.Expression<V>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool>? = nil, references table: any PowerFactor.QueryType, _ other: PowerFactor.Expression<V>) where V : PowerFactor.Value, V.Datatype == Swift.Int64
-  final public func column<V>(_ name: PowerFactor.Expression<V>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool?>, references table: any PowerFactor.QueryType, _ other: PowerFactor.Expression<V>) where V : PowerFactor.Value, V.Datatype == Swift.Int64
-  final public func column<V>(_ name: PowerFactor.Expression<V?>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool>? = nil, references table: any PowerFactor.QueryType, _ other: PowerFactor.Expression<V>) where V : PowerFactor.Value, V.Datatype == Swift.Int64
-  final public func column<V>(_ name: PowerFactor.Expression<V?>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool?>, references table: any PowerFactor.QueryType, _ other: PowerFactor.Expression<V>) where V : PowerFactor.Value, V.Datatype == Swift.Int64
-  final public func column<V>(_ name: PowerFactor.Expression<V>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool>? = nil, defaultValue: PowerFactor.Expression<V>? = nil, collate: PowerFactor.Collation) where V : PowerFactor.Value, V.Datatype == Swift.String
-  final public func column<V>(_ name: PowerFactor.Expression<V>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool>? = nil, defaultValue: V, collate: PowerFactor.Collation) where V : PowerFactor.Value, V.Datatype == Swift.String
-  final public func column<V>(_ name: PowerFactor.Expression<V>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool?>, defaultValue: PowerFactor.Expression<V>? = nil, collate: PowerFactor.Collation) where V : PowerFactor.Value, V.Datatype == Swift.String
-  final public func column<V>(_ name: PowerFactor.Expression<V>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool?>, defaultValue: V, collate: PowerFactor.Collation) where V : PowerFactor.Value, V.Datatype == Swift.String
-  final public func column<V>(_ name: PowerFactor.Expression<V?>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool>? = nil, defaultValue: PowerFactor.Expression<V>? = nil, collate: PowerFactor.Collation) where V : PowerFactor.Value, V.Datatype == Swift.String
-  final public func column<V>(_ name: PowerFactor.Expression<V?>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool>? = nil, defaultValue: PowerFactor.Expression<V?>, collate: PowerFactor.Collation) where V : PowerFactor.Value, V.Datatype == Swift.String
-  final public func column<V>(_ name: PowerFactor.Expression<V?>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool>? = nil, defaultValue: V, collate: PowerFactor.Collation) where V : PowerFactor.Value, V.Datatype == Swift.String
-  final public func column<V>(_ name: PowerFactor.Expression<V?>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool?>, defaultValue: PowerFactor.Expression<V>? = nil, collate: PowerFactor.Collation) where V : PowerFactor.Value, V.Datatype == Swift.String
-  final public func column<V>(_ name: PowerFactor.Expression<V?>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool?>, defaultValue: PowerFactor.Expression<V?>, collate: PowerFactor.Collation) where V : PowerFactor.Value, V.Datatype == Swift.String
-  final public func column<V>(_ name: PowerFactor.Expression<V?>, unique: Swift.Bool = false, check: PowerFactor.Expression<Swift.Bool?>, defaultValue: V, collate: PowerFactor.Collation) where V : PowerFactor.Value, V.Datatype == Swift.String
-  final public func primaryKey<T>(_ column: PowerFactor.Expression<T>) where T : PowerFactor.Value
-  final public func primaryKey<T, U>(_ compositeA: PowerFactor.Expression<T>, _ b: PowerFactor.Expression<U>) where T : PowerFactor.Value, U : PowerFactor.Value
-  final public func primaryKey<T, U, V>(_ compositeA: PowerFactor.Expression<T>, _ b: PowerFactor.Expression<U>, _ c: PowerFactor.Expression<V>) where T : PowerFactor.Value, U : PowerFactor.Value, V : PowerFactor.Value
-  final public func unique(_ columns: any PowerFactor.Expressible...)
-  final public func unique(_ columns: [any PowerFactor.Expressible])
-  final public func check(_ condition: PowerFactor.Expression<Swift.Bool>)
-  final public func check(_ condition: PowerFactor.Expression<Swift.Bool?>)
-  public enum Dependency : Swift.String {
-    case NoAction
-    case Restrict
-    case SetNull
-    case SetDefault
-    case Cascade
-    public init?(rawValue: Swift.String)
-    public typealias RawValue = Swift.String
-    public var rawValue: Swift.String {
-      get
-    }
-  }
-  final public func foreignKey<T>(_ column: PowerFactor.Expression<T>, references table: any PowerFactor.QueryType, _ other: PowerFactor.Expression<T>, update: PowerFactor.TableBuilder.Dependency? = nil, delete: PowerFactor.TableBuilder.Dependency? = nil) where T : PowerFactor.Value
-  final public func foreignKey<T>(_ column: PowerFactor.Expression<T?>, references table: any PowerFactor.QueryType, _ other: PowerFactor.Expression<T>, update: PowerFactor.TableBuilder.Dependency? = nil, delete: PowerFactor.TableBuilder.Dependency? = nil) where T : PowerFactor.Value
-  final public func foreignKey<T, U>(_ composite: (PowerFactor.Expression<T>, PowerFactor.Expression<U>), references table: any PowerFactor.QueryType, _ other: (PowerFactor.Expression<T>, PowerFactor.Expression<U>), update: PowerFactor.TableBuilder.Dependency? = nil, delete: PowerFactor.TableBuilder.Dependency? = nil) where T : PowerFactor.Value, U : PowerFactor.Value
-  final public func foreignKey<T, U, V>(_ composite: (PowerFactor.Expression<T>, PowerFactor.Expression<U>, PowerFactor.Expression<V>), references table: any PowerFactor.QueryType, _ other: (PowerFactor.Expression<T>, PowerFactor.Expression<U>, PowerFactor.Expression<V>), update: PowerFactor.TableBuilder.Dependency? = nil, delete: PowerFactor.TableBuilder.Dependency? = nil) where T : PowerFactor.Value, U : PowerFactor.Value, V : PowerFactor.Value
-  @objc deinit
-}
-public enum PrimaryKey {
-  case `default`
-  case autoincrement
-  public static func == (a: PowerFactor.PrimaryKey, b: PowerFactor.PrimaryKey) -> Swift.Bool
-  public func hash(into hasher: inout Swift.Hasher)
-  public var hashValue: Swift.Int {
-    get
-  }
-}
-public struct Module {
-  public init(_ name: Swift.String, _ arguments: [any PowerFactor.Expressible])
-}
-extension PowerFactor.Module : PowerFactor.Expressible {
-  public var expression: PowerFactor.Expression<Swift.Void> {
-    get
   }
 }
 final public class AES {
@@ -3902,6 +2922,11 @@ public struct PCBC : PowerFactor.BlockMode {
     public func encode(to encoder: any Swift.Encoder) throws
     public init(from decoder: any Swift.Decoder) throws
   }
+  public struct PinConfirmationPopup : Swift.Codable {
+    public init(title: Swift.String?, approveButtonTitle: Swift.String?, cancelButtonTitle: Swift.String?, pinPlaceholder: Swift.String?)
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
   public struct BottomBar : Swift.Codable {
     public func encode(to encoder: any Swift.Encoder) throws
     public init(from decoder: any Swift.Decoder) throws
@@ -3916,6 +2941,10 @@ public struct PCBC : PowerFactor.BlockMode {
     public init(from decoder: any Swift.Decoder) throws
   }
   public struct Icon : Swift.Codable {
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public struct AlertDialog : Swift.Codable {
     public func encode(to encoder: any Swift.Encoder) throws
     public init(from decoder: any Swift.Decoder) throws
   }
@@ -3954,6 +2983,10 @@ public struct PCBC : PowerFactor.BlockMode {
     public func encode(to encoder: any Swift.Encoder) throws
     public init(from decoder: any Swift.Decoder) throws
   }
+  public struct Divider : Swift.Codable {
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
   public enum EnumTypefaceStyle : Swift.Int {
     case normal
     case bold
@@ -3975,97 +3008,6 @@ public struct PCBC : PowerFactor.BlockMode {
     }
   }
   @objc deinit
-}
-final public class Connection {
-  public enum Location {
-    case inMemory
-    case temporary
-    case uri(Swift.String)
-  }
-  final public var handle: Swift.OpaquePointer {
-    get
-  }
-  public init(_ location: PowerFactor.Connection.Location = .inMemory, readonly: Swift.Bool = false) throws
-  convenience public init(_ filename: Swift.String, readonly: Swift.Bool = false) throws
-  @objc deinit
-  final public var readonly: Swift.Bool {
-    get
-  }
-  final public var lastInsertRowid: Swift.Int64? {
-    get
-  }
-  final public var changes: Swift.Int {
-    get
-  }
-  final public var totalChanges: Swift.Int {
-    get
-  }
-  final public func execute(_ SQL: Swift.String) throws
-  final public func prepare(_ statement: Swift.String, _ bindings: (any PowerFactor.Binding)?...) throws -> PowerFactor.Statement
-  final public func prepare(_ statement: Swift.String, _ bindings: [(any PowerFactor.Binding)?]) throws -> PowerFactor.Statement
-  final public func prepare(_ statement: Swift.String, _ bindings: [Swift.String : (any PowerFactor.Binding)?]) throws -> PowerFactor.Statement
-  @discardableResult
-  final public func run(_ statement: Swift.String, _ bindings: (any PowerFactor.Binding)?...) throws -> PowerFactor.Statement
-  @discardableResult
-  final public func run(_ statement: Swift.String, _ bindings: [(any PowerFactor.Binding)?]) throws -> PowerFactor.Statement
-  @discardableResult
-  final public func run(_ statement: Swift.String, _ bindings: [Swift.String : (any PowerFactor.Binding)?]) throws -> PowerFactor.Statement
-  final public func scalar(_ statement: Swift.String, _ bindings: (any PowerFactor.Binding)?...) throws -> (any PowerFactor.Binding)?
-  final public func scalar(_ statement: Swift.String, _ bindings: [(any PowerFactor.Binding)?]) throws -> (any PowerFactor.Binding)?
-  final public func scalar(_ statement: Swift.String, _ bindings: [Swift.String : (any PowerFactor.Binding)?]) throws -> (any PowerFactor.Binding)?
-  public enum TransactionMode : Swift.String {
-    case Deferred
-    case Immediate
-    case Exclusive
-    public init?(rawValue: Swift.String)
-    public typealias RawValue = Swift.String
-    public var rawValue: Swift.String {
-      get
-    }
-  }
-  final public func transaction(_ mode: PowerFactor.Connection.TransactionMode = .Deferred, block: @escaping () throws -> Swift.Void) throws
-  final public func savepoint(_ name: Swift.String = UUID().uuidString, block: @escaping () throws -> Swift.Void) throws
-  final public func interrupt()
-  final public var busyTimeout: Swift.Double {
-    get
-    set
-  }
-  final public func busyHandler(_ callback: ((_ tries: Swift.Int) -> Swift.Bool)?)
-  final public func trace(_ callback: ((Swift.String) -> Swift.Void)?)
-  final public func updateHook(_ callback: ((_ operation: PowerFactor.Operation, _ db: Swift.String, _ table: Swift.String, _ rowid: Swift.Int64) -> Swift.Void)?)
-  final public func commitHook(_ callback: (() throws -> Swift.Void)?)
-  final public func rollbackHook(_ callback: (() -> Swift.Void)?)
-  final public func createFunction(_ function: Swift.String, argumentCount: Swift.UInt? = nil, deterministic: Swift.Bool = false, _ block: @escaping (_ args: [(any PowerFactor.Binding)?]) -> (any PowerFactor.Binding)?)
-  public typealias ComparisonResult = Foundation.ComparisonResult
-  final public func createCollation(_ collation: Swift.String, _ block: @escaping (_ lhs: Swift.String, _ rhs: Swift.String) -> PowerFactor.Connection.ComparisonResult) throws
-}
-extension PowerFactor.Connection : Swift.CustomStringConvertible {
-  final public var description: Swift.String {
-    get
-  }
-}
-extension PowerFactor.Connection.Location : Swift.CustomStringConvertible {
-  public var description: Swift.String {
-    get
-  }
-}
-public enum Operation {
-  case insert
-  case update
-  case delete
-  public static func == (a: PowerFactor.Operation, b: PowerFactor.Operation) -> Swift.Bool
-  public func hash(into hasher: inout Swift.Hasher)
-  public var hashValue: Swift.Int {
-    get
-  }
-}
-public enum SqliteResult : Swift.Error {
-  case error(message: Swift.String, code: Swift.Int32, statement: PowerFactor.Statement?)
-}
-extension PowerFactor.SqliteResult : Swift.CustomStringConvertible {
-  public var description: Swift.String {
-    get
-  }
 }
 @objc @_inheritsConvenienceInitializers @IBDesignable @_Concurrency.MainActor(unsafe) public class ReadMoreTextView : UIKit.UITextView {
   @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect, textContainer: UIKit.NSTextContainer?)
@@ -4116,9 +3058,6 @@ extension PowerFactor.SqliteResult : Swift.CustomStringConvertible {
   @_Concurrency.MainActor(unsafe) @objc override dynamic public func touchesEnded(_ touches: Swift.Set<UIKit.UITouch>, with event: UIKit.UIEvent?)
   @objc deinit
 }
-extension PowerFactor.Module {
-  public static func RTree<T, U>(_ primaryKey: PowerFactor.Expression<T>, _ pairs: (PowerFactor.Expression<U>, PowerFactor.Expression<U>)...) -> PowerFactor.Module where T : PowerFactor.Value, U : PowerFactor.Value, T.Datatype == Swift.Int64, U.Datatype == Swift.Double
-}
 extension PowerFactor.CS.BigUInt : Swift.Strideable {
   public typealias Stride = PowerFactor.CS.BigInt
   public func advanced(by n: PowerFactor.CS.BigInt) -> PowerFactor.CS.BigUInt
@@ -4143,104 +3082,6 @@ extension PowerFactor.CS.BigInt {
   public mutating func negate()
   public static func - (a: PowerFactor.CS.BigInt, b: PowerFactor.CS.BigInt) -> PowerFactor.CS.BigInt
   public static func -= (a: inout PowerFactor.CS.BigInt, b: PowerFactor.CS.BigInt)
-}
-extension PowerFactor.ExpressionType where Self.UnderlyingType : PowerFactor.Number {
-  public var absoluteValue: PowerFactor.Expression<Self.UnderlyingType> {
-    get
-  }
-}
-extension PowerFactor.ExpressionType where Self.UnderlyingType : PowerFactor._OptionalType, Self.UnderlyingType.WrappedType : PowerFactor.Number {
-  public var absoluteValue: PowerFactor.Expression<Self.UnderlyingType> {
-    get
-  }
-}
-extension PowerFactor.ExpressionType where Self.UnderlyingType == Swift.Double {
-  public func round(_ precision: Swift.Int? = nil) -> PowerFactor.Expression<Self.UnderlyingType>
-}
-extension PowerFactor.ExpressionType where Self.UnderlyingType == Swift.Double? {
-  public func round(_ precision: Swift.Int? = nil) -> PowerFactor.Expression<Self.UnderlyingType>
-}
-extension PowerFactor.ExpressionType where Self.UnderlyingType : PowerFactor.Value, Self.UnderlyingType.Datatype == Swift.Int64 {
-  public static func random() -> PowerFactor.Expression<Self.UnderlyingType>
-}
-extension PowerFactor.ExpressionType where Self.UnderlyingType == Foundation.Data {
-  public static func random(_ length: Swift.Int) -> PowerFactor.Expression<Self.UnderlyingType>
-  public static func allZeros(_ length: Swift.Int) -> PowerFactor.Expression<Self.UnderlyingType>
-  public var length: PowerFactor.Expression<Swift.Int> {
-    get
-  }
-}
-extension PowerFactor.ExpressionType where Self.UnderlyingType == Foundation.Data? {
-  public var length: PowerFactor.Expression<Swift.Int?> {
-    get
-  }
-}
-extension PowerFactor.ExpressionType where Self.UnderlyingType == Swift.String {
-  public var length: PowerFactor.Expression<Swift.Int> {
-    get
-  }
-  public var lowercaseString: PowerFactor.Expression<Swift.String> {
-    get
-  }
-  public var uppercaseString: PowerFactor.Expression<Swift.String> {
-    get
-  }
-  public func like(_ pattern: Swift.String, escape character: Swift.Character? = nil) -> PowerFactor.Expression<Swift.Bool>
-  public func glob(_ pattern: Swift.String) -> PowerFactor.Expression<Swift.Bool>
-  public func match(_ pattern: Swift.String) -> PowerFactor.Expression<Swift.Bool>
-  public func regexp(_ pattern: Swift.String) -> PowerFactor.Expression<Swift.Bool>
-  public func collate(_ collation: PowerFactor.Collation) -> PowerFactor.Expression<Self.UnderlyingType>
-  public func ltrim(_ characters: Swift.Set<Swift.Character>? = nil) -> PowerFactor.Expression<Self.UnderlyingType>
-  public func rtrim(_ characters: Swift.Set<Swift.Character>? = nil) -> PowerFactor.Expression<Self.UnderlyingType>
-  public func trim(_ characters: Swift.Set<Swift.Character>? = nil) -> PowerFactor.Expression<Self.UnderlyingType>
-  public func replace(_ pattern: Swift.String, with replacement: Swift.String) -> PowerFactor.Expression<Self.UnderlyingType>
-  public func substring(_ location: Swift.Int, length: Swift.Int? = nil) -> PowerFactor.Expression<Self.UnderlyingType>
-  public subscript(range: Swift.Range<Swift.Int>) -> PowerFactor.Expression<Self.UnderlyingType> {
-    get
-  }
-}
-extension PowerFactor.ExpressionType where Self.UnderlyingType == Swift.String? {
-  public var length: PowerFactor.Expression<Swift.Int?> {
-    get
-  }
-  public var lowercaseString: PowerFactor.Expression<Swift.Optional<Swift.String>> {
-    get
-  }
-  public var uppercaseString: PowerFactor.Expression<Swift.Optional<Swift.String>> {
-    get
-  }
-  public func like(_ pattern: Swift.String, escape character: Swift.Character? = nil) -> PowerFactor.Expression<Swift.Bool?>
-  public func glob(_ pattern: Swift.String) -> PowerFactor.Expression<Swift.Bool?>
-  public func match(_ pattern: Swift.String) -> PowerFactor.Expression<Swift.Bool>
-  public func regexp(_ pattern: Swift.String) -> PowerFactor.Expression<Swift.Bool?>
-  public func collate(_ collation: PowerFactor.Collation) -> PowerFactor.Expression<Self.UnderlyingType>
-  public func ltrim(_ characters: Swift.Set<Swift.Character>? = nil) -> PowerFactor.Expression<Self.UnderlyingType>
-  public func rtrim(_ characters: Swift.Set<Swift.Character>? = nil) -> PowerFactor.Expression<Self.UnderlyingType>
-  public func trim(_ characters: Swift.Set<Swift.Character>? = nil) -> PowerFactor.Expression<Self.UnderlyingType>
-  public func replace(_ pattern: Swift.String, with replacement: Swift.String) -> PowerFactor.Expression<Self.UnderlyingType>
-  public func substring(_ location: Swift.Int, length: Swift.Int? = nil) -> PowerFactor.Expression<Self.UnderlyingType>
-  public subscript(range: Swift.Range<Swift.Int>) -> PowerFactor.Expression<Self.UnderlyingType> {
-    get
-  }
-}
-public func ?? <V>(optional: PowerFactor.Expression<V?>, defaultValue: V) -> PowerFactor.Expression<V> where V : PowerFactor.Value
-public func ?? <V>(optional: PowerFactor.Expression<V?>, defaultValue: PowerFactor.Expression<V>) -> PowerFactor.Expression<V> where V : PowerFactor.Value
-public func ?? <V>(optional: PowerFactor.Expression<V?>, defaultValue: PowerFactor.Expression<V?>) -> PowerFactor.Expression<V> where V : PowerFactor.Value
-extension PowerFactor.Connection {
-  final public func createFunction<Z>(_ function: Swift.String, deterministic: Swift.Bool = false, _ block: @escaping () -> Z) throws -> (() -> PowerFactor.Expression<Z>) where Z : PowerFactor.Value
-  final public func createFunction<Z>(_ function: Swift.String, deterministic: Swift.Bool = false, _ block: @escaping () -> Z?) throws -> (() -> PowerFactor.Expression<Z?>) where Z : PowerFactor.Value
-  final public func createFunction<Z, A>(_ function: Swift.String, deterministic: Swift.Bool = false, _ block: @escaping (A) -> Z) throws -> ((PowerFactor.Expression<A>) -> PowerFactor.Expression<Z>) where Z : PowerFactor.Value, A : PowerFactor.Value
-  final public func createFunction<Z, A>(function: Swift.String, deterministic: Swift.Bool = false, _ block: @escaping (A?) -> Z) throws -> ((PowerFactor.Expression<A?>) -> PowerFactor.Expression<Z>) where Z : PowerFactor.Value, A : PowerFactor.Value
-  final public func createFunction<Z, A>(function: Swift.String, deterministic: Swift.Bool = false, _ block: @escaping (A) -> Z?) throws -> ((PowerFactor.Expression<A>) -> PowerFactor.Expression<Z?>) where Z : PowerFactor.Value, A : PowerFactor.Value
-  final public func createFunction<Z, A>(function: Swift.String, deterministic: Swift.Bool = false, _ block: @escaping (A?) -> Z?) throws -> ((PowerFactor.Expression<A?>) -> PowerFactor.Expression<Z?>) where Z : PowerFactor.Value, A : PowerFactor.Value
-  final public func createFunction<Z, A, B>(_ function: Swift.String, deterministic: Swift.Bool = false, _ block: @escaping (A, B) -> Z) throws -> (PowerFactor.Expression<A>, PowerFactor.Expression<B>) -> PowerFactor.Expression<Z> where Z : PowerFactor.Value, A : PowerFactor.Value, B : PowerFactor.Value
-  final public func createFunction<Z, A, B>(_ function: Swift.String, deterministic: Swift.Bool = false, _ block: @escaping (A?, B) -> Z) throws -> (PowerFactor.Expression<A?>, PowerFactor.Expression<B>) -> PowerFactor.Expression<Z> where Z : PowerFactor.Value, A : PowerFactor.Value, B : PowerFactor.Value
-  final public func createFunction<Z, A, B>(_ function: Swift.String, deterministic: Swift.Bool = false, _ block: @escaping (A, B?) -> Z) throws -> (PowerFactor.Expression<A>, PowerFactor.Expression<B?>) -> PowerFactor.Expression<Z> where Z : PowerFactor.Value, A : PowerFactor.Value, B : PowerFactor.Value
-  final public func createFunction<Z, A, B>(_ function: Swift.String, deterministic: Swift.Bool = false, _ block: @escaping (A, B) -> Z?) throws -> (PowerFactor.Expression<A>, PowerFactor.Expression<B>) -> PowerFactor.Expression<Z?> where Z : PowerFactor.Value, A : PowerFactor.Value, B : PowerFactor.Value
-  final public func createFunction<Z, A, B>(_ function: Swift.String, deterministic: Swift.Bool = false, _ block: @escaping (A?, B?) -> Z) throws -> (PowerFactor.Expression<A?>, PowerFactor.Expression<B?>) -> PowerFactor.Expression<Z> where Z : PowerFactor.Value, A : PowerFactor.Value, B : PowerFactor.Value
-  final public func createFunction<Z, A, B>(_ function: Swift.String, deterministic: Swift.Bool = false, _ block: @escaping (A?, B) -> Z?) throws -> (PowerFactor.Expression<A?>, PowerFactor.Expression<B>) -> PowerFactor.Expression<Z?> where Z : PowerFactor.Value, A : PowerFactor.Value, B : PowerFactor.Value
-  final public func createFunction<Z, A, B>(_ function: Swift.String, deterministic: Swift.Bool = false, _ block: @escaping (A, B?) -> Z?) throws -> (PowerFactor.Expression<A>, PowerFactor.Expression<B?>) -> PowerFactor.Expression<Z?> where Z : PowerFactor.Value, A : PowerFactor.Value, B : PowerFactor.Value
-  final public func createFunction<Z, A, B>(_ function: Swift.String, deterministic: Swift.Bool = false, _ block: @escaping (A?, B?) -> Z?) throws -> (PowerFactor.Expression<A?>, PowerFactor.Expression<B?>) -> PowerFactor.Expression<Z?> where Z : PowerFactor.Value, A : PowerFactor.Value, B : PowerFactor.Value
 }
 public class ClearMessage : PowerFactor.Message {
   final public let data: Foundation.Data
@@ -4560,6 +3401,41 @@ final internal class StreamDecryptor : PowerFactor.Cryptor, PowerFactor.Updatabl
   @objc @usableFromInline
   deinit
 }
+@_inheritsConvenienceInitializers @objc(ClientLog) public class ClientLog : CoreData.NSManagedObject {
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+  @objc deinit
+}
+extension PowerFactor.ClientLog {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<PowerFactor.ClientLog>
+  @objc @NSManaged dynamic public var customerid: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var message: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var messagedate: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var messagetype: Swift.Int16 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var methodname: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var sessionkey: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var uuid: Foundation.UUID? {
+    @objc get
+    @objc set
+  }
+}
 extension PowerFactor.CMAC.Error : Swift.Equatable {}
 extension PowerFactor.CMAC.Error : Swift.Hashable {}
 extension PowerFactor.PKCS5.PBKDF2.Error : Swift.Equatable {}
@@ -4574,12 +3450,6 @@ extension PowerFactor.GCM.Mode : Swift.Equatable {}
 extension PowerFactor.GCM.Mode : Swift.Hashable {}
 extension PowerFactor.GCM.Error : Swift.Equatable {}
 extension PowerFactor.GCM.Error : Swift.Hashable {}
-extension PowerFactor.FTSConfig.ColumnOption : Swift.Equatable {}
-extension PowerFactor.FTSConfig.ColumnOption : Swift.Hashable {}
-extension PowerFactor.FTS4Config.MatchInfo : Swift.Equatable {}
-extension PowerFactor.FTS4Config.MatchInfo : Swift.Hashable {}
-extension PowerFactor.FTS4Config.Order : Swift.Equatable {}
-extension PowerFactor.FTS4Config.Order : Swift.Hashable {}
 extension PowerFactor.Token.Kind : Swift.Equatable {}
 extension PowerFactor.Token.Kind : Swift.Hashable {}
 extension PowerFactor.Token.Kind : Swift.RawRepresentable {}
@@ -4609,12 +3479,6 @@ extension PowerFactor.ChaCha20.Error : Swift.Equatable {}
 extension PowerFactor.ChaCha20.Error : Swift.Hashable {}
 extension PowerFactor.CS.BigInt.Sign : Swift.Equatable {}
 extension PowerFactor.CS.BigInt.Sign : Swift.Hashable {}
-extension PowerFactor.JoinType : Swift.Equatable {}
-extension PowerFactor.JoinType : Swift.Hashable {}
-extension PowerFactor.JoinType : Swift.RawRepresentable {}
-extension PowerFactor.OnConflict : Swift.Equatable {}
-extension PowerFactor.OnConflict : Swift.Hashable {}
-extension PowerFactor.OnConflict : Swift.RawRepresentable {}
 extension PowerFactor.SHA3.Variant : Swift.Equatable {}
 extension PowerFactor.SHA3.Variant : Swift.Hashable {}
 extension PowerFactor.HKDF.Error : Swift.Equatable {}
@@ -4635,8 +3499,6 @@ extension PowerFactor.CFB.Error : Swift.Hashable {}
 extension PowerFactor.CFB.SegmentSize : Swift.Equatable {}
 extension PowerFactor.CFB.SegmentSize : Swift.Hashable {}
 extension PowerFactor.CFB.SegmentSize : Swift.RawRepresentable {}
-extension PowerFactor.FTS5Config.Detail : Swift.Equatable {}
-extension PowerFactor.FTS5Config.Detail : Swift.Hashable {}
 extension PowerFactor.TransactionStatusNames : Swift.Equatable {}
 extension PowerFactor.TransactionStatusNames : Swift.Hashable {}
 extension PowerFactor.TransactionStatusNames : Swift.RawRepresentable {}
@@ -4702,11 +3564,6 @@ extension PowerFactor.RSA.SignatureVariant : Swift.Hashable {}
 extension PowerFactor.Bit : Swift.Equatable {}
 extension PowerFactor.Bit : Swift.Hashable {}
 extension PowerFactor.Bit : Swift.RawRepresentable {}
-extension PowerFactor.TableBuilder.Dependency : Swift.Equatable {}
-extension PowerFactor.TableBuilder.Dependency : Swift.Hashable {}
-extension PowerFactor.TableBuilder.Dependency : Swift.RawRepresentable {}
-extension PowerFactor.PrimaryKey : Swift.Equatable {}
-extension PowerFactor.PrimaryKey : Swift.Hashable {}
 extension PowerFactor.AES.Error : Swift.Equatable {}
 extension PowerFactor.AES.Error : Swift.Hashable {}
 extension PowerFactor.AES.Variant : Swift.Equatable {}
@@ -4720,11 +3577,6 @@ extension PowerFactor.PWFScreenCreator.EnumTypefaceStyle : Swift.RawRepresentabl
 extension PowerFactor.PWFScreenCreator.EnumAlign : Swift.Equatable {}
 extension PowerFactor.PWFScreenCreator.EnumAlign : Swift.Hashable {}
 extension PowerFactor.PWFScreenCreator.EnumAlign : Swift.RawRepresentable {}
-extension PowerFactor.Connection.TransactionMode : Swift.Equatable {}
-extension PowerFactor.Connection.TransactionMode : Swift.Hashable {}
-extension PowerFactor.Connection.TransactionMode : Swift.RawRepresentable {}
-extension PowerFactor.Operation : Swift.Equatable {}
-extension PowerFactor.Operation : Swift.Hashable {}
 extension PowerFactor.SHA2.Variant : Swift.Equatable {}
 extension PowerFactor.SHA2.Variant : Swift.Hashable {}
 extension PowerFactor.SHA2.Variant : Swift.Sendable {}

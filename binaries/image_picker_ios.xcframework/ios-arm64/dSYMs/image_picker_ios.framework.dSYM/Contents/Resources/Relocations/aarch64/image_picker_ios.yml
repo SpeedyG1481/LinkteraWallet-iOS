@@ -1,6 +1,6 @@
 ---
 triple:          'arm64-apple-darwin'
-binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/binpay_flutter/ios_flutter_build/Release/iphoneos/Release-iphoneos/image_picker_ios/image_picker_ios.framework/image_picker_ios'
+binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/LinkteraWallet-iOS/binaries/Release/iphoneos/Release-iphoneos/image_picker_ios/image_picker_ios.framework/image_picker_ios'
 relocations:
   - { offset: 0x7A645, size: 0x8, addend: 0x0, symName: _image_picker_iosVersionString, symObjAddr: 0x0, symBinAddr: 0xC920, symSize: 0x0 }
   - { offset: 0x7A67A, size: 0x8, addend: 0x0, symName: _image_picker_iosVersionNumber, symObjAddr: 0x30, symBinAddr: 0xC950, symSize: 0x0 }
@@ -134,8 +134,8 @@ relocations:
   - { offset: 0x7EA80, size: 0x8, addend: 0x0, symName: '-[FLTPHPickerSaveImageToPathOperation .cxx_destruct]', symObjAddr: 0xA50, symBinAddr: 0x89CC, symSize: 0x7C }
   - { offset: 0x7EC95, size: 0x8, addend: 0x0, symName: '-[FLTSourceCameraBox initWithValue:]', symObjAddr: 0x0, symBinAddr: 0x8A48, symSize: 0x48 }
   - { offset: 0x7ECA3, size: 0x8, addend: 0x0, symName: _FLTGetMessagesCodec, symObjAddr: 0xE44, symBinAddr: 0x988C, symSize: 0x40 }
-  - { offset: 0x7ECC9, size: 0x8, addend: 0x0, symName: _FLTGetMessagesCodec.sSharedObject, symObjAddr: 0xAEC8, symBinAddr: 0x18328, symSize: 0x0 }
-  - { offset: 0x7ECDF, size: 0x8, addend: 0x0, symName: _FLTGetMessagesCodec.sPred, symObjAddr: 0xAED0, symBinAddr: 0x18330, symSize: 0x0 }
+  - { offset: 0x7ECC9, size: 0x8, addend: 0x0, symName: _FLTGetMessagesCodec.sSharedObject, symObjAddr: 0xAEB0, symBinAddr: 0x18328, symSize: 0x0 }
+  - { offset: 0x7ECDF, size: 0x8, addend: 0x0, symName: _FLTGetMessagesCodec.sPred, symObjAddr: 0xAEB8, symBinAddr: 0x18330, symSize: 0x0 }
   - { offset: 0x7EF18, size: 0x8, addend: 0x0, symName: '-[FLTSourceCameraBox initWithValue:]', symObjAddr: 0x0, symBinAddr: 0x8A48, symSize: 0x48 }
   - { offset: 0x7EF5F, size: 0x8, addend: 0x0, symName: '-[FLTSourceCameraBox value]', symObjAddr: 0x48, symBinAddr: 0x8A90, symSize: 0x8 }
   - { offset: 0x7EF96, size: 0x8, addend: 0x0, symName: '-[FLTSourceCameraBox setValue:]', symObjAddr: 0x50, symBinAddr: 0x8A98, symSize: 0x8 }

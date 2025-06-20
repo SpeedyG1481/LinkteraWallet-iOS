@@ -1,6 +1,6 @@
 ---
 triple:          'arm64-apple-darwin'
-binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/binpay_flutter/ios_flutter_build/Release/iphoneos/Release-iphoneos/store_redirect/store_redirect.framework/store_redirect'
+binary-path:     '/Users/ozgen/Desktop/Projects/Flutter/LinkteraWallet-iOS/binaries/Release/iphoneos/Release-iphoneos/store_redirect/store_redirect.framework/store_redirect'
 relocations:
   - { offset: 0x3D1A, size: 0x8, addend: 0x0, symName: _store_redirectVersionString, symObjAddr: 0x0, symBinAddr: 0x4640, symSize: 0x0 }
   - { offset: 0x3D4E, size: 0x8, addend: 0x0, symName: _store_redirectVersionNumber, symObjAddr: 0x30, symBinAddr: 0x4670, symSize: 0x0 }
