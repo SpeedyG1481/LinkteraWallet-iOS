@@ -18,9 +18,13 @@ let package = Package(
                 "firebase_analytics",
                 "firebase_core",
                 "OrderedSet",
+<<<<<<< HEAD
                 "TOCropViewController",
                 "XYUUID",
                 "app_links",
+=======
+                "XYUUID",
+>>>>>>> development
                 "camera_avfoundation",
                 "device_info_plus",
                 "device_uuid",
@@ -28,17 +32,28 @@ let package = Package(
                 "flutter_inappwebview_ios",
                 "flutter_native_splash",
                 "flutter_secure_storage",
+<<<<<<< HEAD
                 "image_cropper",
                 "image_gallery_saver",
                 "image_picker_ios",
                 "kyc_sdk_plugin",
                 "nfc_manager",
                 "open_mail_app",
+=======
+                "image_gallery_saver_plus",
+                "image_picker_ios",
+                "kyc_sdk_plugin",
+                "nfc_manager",
+>>>>>>> development
                 "package_info_plus",
                 "path_provider_foundation",
                 "permission_handler_apple",
                 "power_factor",
+<<<<<<< HEAD
                 "scan",
+=======
+                "mobile_scanner",
+>>>>>>> development
                 "share_plus",
                 "sqflite_darwin",
                 "store_redirect",
@@ -63,9 +78,13 @@ let package = Package(
         .binaryTarget(name: "Flutter", path: "binaries/Flutter.xcframework"),
         .binaryTarget(name: "FlutterPluginRegistrant", path: "binaries/FlutterPluginRegistrant.xcframework"),
         .binaryTarget(name: "OrderedSet", path: "binaries/OrderedSet.xcframework"),
+<<<<<<< HEAD
         .binaryTarget(name: "TOCropViewController", path: "binaries/TOCropViewController.xcframework"),
         .binaryTarget(name: "XYUUID", path: "binaries/XYUUID.xcframework"),
         .binaryTarget(name: "app_links", path: "binaries/app_links.xcframework"),
+=======
+        .binaryTarget(name: "XYUUID", path: "binaries/XYUUID.xcframework"),
+>>>>>>> development
         .binaryTarget(name: "camera_avfoundation", path: "binaries/camera_avfoundation.xcframework"),
         .binaryTarget(name: "device_info_plus", path: "binaries/device_info_plus.xcframework"),
         .binaryTarget(name: "device_uuid", path: "binaries/device_uuid.xcframework"),
@@ -75,17 +94,28 @@ let package = Package(
         .binaryTarget(name: "flutter_inappwebview_ios", path: "binaries/flutter_inappwebview_ios.xcframework"),
         .binaryTarget(name: "flutter_native_splash", path: "binaries/flutter_native_splash.xcframework"),
         .binaryTarget(name: "flutter_secure_storage", path: "binaries/flutter_secure_storage.xcframework"),
+<<<<<<< HEAD
         .binaryTarget(name: "image_cropper", path: "binaries/image_cropper.xcframework"),
         .binaryTarget(name: "image_gallery_saver", path: "binaries/image_gallery_saver.xcframework"),
         .binaryTarget(name: "image_picker_ios", path: "binaries/image_picker_ios.xcframework"),
         .binaryTarget(name: "kyc_sdk_plugin", path: "binaries/kyc_sdk_plugin.xcframework"),
         .binaryTarget(name: "nfc_manager", path: "binaries/nfc_manager.xcframework"),
         .binaryTarget(name: "open_mail_app", path: "binaries/open_mail_app.xcframework"),
+=======
+        .binaryTarget(name: "image_gallery_saver_plus", path: "binaries/image_gallery_saver_plus.xcframework"),
+        .binaryTarget(name: "image_picker_ios", path: "binaries/image_picker_ios.xcframework"),
+        .binaryTarget(name: "kyc_sdk_plugin", path: "binaries/kyc_sdk_plugin.xcframework"),
+        .binaryTarget(name: "nfc_manager", path: "binaries/nfc_manager.xcframework"),
+>>>>>>> development
         .binaryTarget(name: "package_info_plus", path: "binaries/package_info_plus.xcframework"),
         .binaryTarget(name: "path_provider_foundation", path: "binaries/path_provider_foundation.xcframework"),
         .binaryTarget(name: "permission_handler_apple", path: "binaries/permission_handler_apple.xcframework"),
         .binaryTarget(name: "power_factor", path: "binaries/power_factor.xcframework"),
+<<<<<<< HEAD
         .binaryTarget(name: "scan", path: "binaries/scan.xcframework"),
+=======
+        .binaryTarget(name: "mobile_scanner", path: "binaries/mobile_scanner.xcframework"),
+>>>>>>> development
         .binaryTarget(name: "share_plus", path: "binaries/share_plus.xcframework"),
         .binaryTarget(name: "sqflite_darwin", path: "binaries/sqflite_darwin.xcframework"),
         .binaryTarget(name: "store_redirect", path: "binaries/store_redirect.xcframework"),

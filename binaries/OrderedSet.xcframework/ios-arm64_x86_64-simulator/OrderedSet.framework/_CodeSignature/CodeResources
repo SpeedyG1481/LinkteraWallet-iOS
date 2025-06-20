@@ -18,11 +18,19 @@
 		</data>
 		<key>Modules/OrderedSet.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
+<<<<<<< HEAD
 		iDhdmW8NA/VWYxde63pfp7hVvrA=
 		</data>
 		<key>Modules/OrderedSet.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
 		zbpxaGDZx0vb02YDf+xkebdnPoI=
+=======
+		C+hKnDI9rpMlA9nX9Lf3iszlDNw=
+		</data>
+		<key>Modules/OrderedSet.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
+		<data>
+		0GqrN5oLszgHdH+qp4TPtMFmbwk=
+>>>>>>> development
 		</data>
 		<key>Modules/OrderedSet.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -97,14 +105,22 @@
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			XXr2fL5q2t8M1rQ2vTTBPA96FDDeGeq4J4UJI716aYs=
+=======
+			sNscTkehIJzYpaOd60td51CHafkB4s2I8ZiBIWW7wi8=
+>>>>>>> development
 			</data>
 		</dict>
 		<key>Modules/OrderedSet.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
+<<<<<<< HEAD
 			DTPSv8rdgs3XHdzv2//LG8BR1Qr0EJswcM3hUk1Dm+o=
+=======
+			PovpiZcIFNrbnhBDMBPhyCmcykY2uL+UwMM1O3FHJiY=
+>>>>>>> development
 			</data>
 		</dict>
 		<key>Modules/OrderedSet.swiftmodule/arm64-apple-ios-simulator.abi.json</key>

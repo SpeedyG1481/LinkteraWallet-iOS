@@ -1,0 +1,11 @@
+framework module PowerFactor {
+  umbrella header "PowerFactor.h"
+  export *
+
+  module * { export * }
+}
+
+module PowerFactor.Swift {
+  header "PowerFactor-Swift.h"
+  requires objc
+}
